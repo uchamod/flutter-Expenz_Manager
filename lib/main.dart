@@ -1,3 +1,4 @@
+import 'package:expenze_manager/screens/onboard_screens.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,14 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: "Poppins",
       ),
-      home: const Scaffold(
-        body: Center(
-          child: Text(
-            "Expenz Manager",
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
-          ),
-        ),
-      ),
+      home: OnBoardScreen(),
     );
   }
 }

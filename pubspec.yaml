@@ -98,17 +98,7 @@ flutter:
         - weight: 500
         - asset: fontassets/secondary/Roboto-Bold.ttf
         - weight: 700
-
-    #  - family: OpenSans
-    #    fonts:
-    #     - asset: fontassets/ternery/OpenSans-Regular.ttf
-    #     - weight: 400
-    #     - asset: fontassets/ternery/OpenSans-Medium.ttf
-    #     - weight: 500
-    #     - asset: fontassets/ternery/OpenSans-SemiBold.ttf
-    #     - weight: 600    
-    #     - asset: fontassets/ternery/OpenSans-Bold.ttf
-    #     - weight: 700    
+   
       
          
   #

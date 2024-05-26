@@ -22,22 +22,13 @@ class _UserDetailsState extends State<UserDetails> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController conformPasswordController =
       TextEditingController();
-
+  //check the validation
   bool isChecked = false;
   StoreUserData userdata = StoreUserData();
+  //control the visibility of passwords
+  bool isvisible = true;
+  bool isvisibleCorrect = true;
   @override
-  // Future<void> initState() async {
-  //   // TODO: implement initState
-  //   _nameController.addListener(
-  //     userdata.storeData(
-  //         name: _nameController,
-  //         email: _emailController,
-  //         password: _passwordController,
-  //         conformpassword: _conformPasswordController,
-  //         context: context) as VoidCallback,
-  //   );
-  //   super.initState();
-  // }
 
   //dispose the data
   @override
@@ -81,48 +72,90 @@ class _UserDetailsState extends State<UserDetails> {
                   children: [
                     //text field for username
                     UserDetailFormFiled(
+                      showText: false,
                       inputType: TextInputType.name,
                       inputAction: TextInputAction.next,
                       hintText: "Name",
                       errorMassage: "please fill the username",
                       textController: nameController,
-                      showText: false,
+                      isvaild: (value) {
+                        if (value!.isEmpty) {
+                          return "please fill the username";
+                        }
+                      },
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     //text field for user email
                     UserDetailFormFiled(
+                      showText: false,
                       inputType: TextInputType.emailAddress,
                       inputAction: TextInputAction.next,
                       hintText: "Email",
                       errorMassage: "please fill the Email",
                       textController: emailController,
-                      showText: false,
+                      isvaild: _validateEmail,
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     //text filed for password
                     UserDetailFormFiled(
+                      showText: isvisible,
                       inputType: TextInputType.text,
                       inputAction: TextInputAction.next,
                       hintText: "Password",
                       errorMassage: "please fill the Password",
                       textController: passwordController,
-                      showText: true,
+                      isvaild: _validatePassword,
+                      conditionWidget: InkWell(
+                          onTap: () {
+                            setState(() {
+                              isPasswordShow();
+                            });
+                          },
+                          child: isvisible
+                              ? Icon(
+                                  Icons.visibility_off,
+                                  size: 24,
+                                  color: kcDiscription,
+                                )
+                              : Icon(
+                                  Icons.visibility,
+                                  size: 24,
+                                  color: kcDiscription,
+                                )),
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     //text filed for confirm password
                     UserDetailFormFiled(
+                      showText: isvisibleCorrect,
                       inputType: TextInputType.text,
                       inputAction: TextInputAction.done,
                       hintText: "Confirm Password",
                       errorMassage: "please Confirm the password",
                       textController: conformPasswordController,
-                      showText: true,
+                      isvaild: _validatePassword,
+                      conditionWidget: InkWell(
+                          onTap: () {
+                            setState(() {
+                              isConformPasswordShow();
+                            });
+                          },
+                          child: isvisibleCorrect
+                              ? Icon(
+                                  Icons.visibility_off,
+                                  size: 24,
+                                  color: kcDiscription,
+                                )
+                              : Icon(
+                                  Icons.visibility,
+                                  size: 24,
+                                  color: kcDiscription,
+                                )),
                     ),
                     const SizedBox(
                       height: 20,
@@ -162,11 +195,6 @@ class _UserDetailsState extends State<UserDetails> {
                         //checke  form state is not nullable
                         if (_validationKey.currentState!.validate()) {
                           //is form is valid
-                          // String userName = nameController.text;
-                          // String userEmail = emailController.text;
-                          // String userPassword = passwordController.text;
-                          // String userCoformPassword =
-                          //     conformPasswordController.text;
 
                           //call the user store method
                           await userdata.storeData(
@@ -192,5 +220,53 @@ class _UserDetailsState extends State<UserDetails> {
         ),
       ),
     ));
+  }
+
+  //check email is valid
+  String? _validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your email';
+    }
+    // Regex for validating email format
+    String pattern = r'^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$';
+    RegExp regex = RegExp(pattern);
+    if (!regex.hasMatch(value)) {
+      return 'Enter a valid email address';
+    }
+    return null;
+  }
+
+  //check password is valid
+  String? _validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your password';
+    }
+    if (value.length < 8) {
+      return 'Password must be at least 8 characters long';
+    }
+    if (!RegExp(r'[A-Z]').hasMatch(value)) {
+      return 'Password must contain at least one uppercase letter';
+    }
+    if (!RegExp(r'[a-z]').hasMatch(value)) {
+      return 'Password must contain at least one lowercase letter';
+    }
+    if (!RegExp(r'[0-9]').hasMatch(value)) {
+      return 'Password must contain at least one number';
+    }
+    if (!RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(value)) {
+      return 'Password must contain at least one special character';
+    }
+    return null;
+  }
+
+  //function for chang the pasword icon
+  bool isPasswordShow() {
+    isvisible = !isvisible;
+    return isvisible;
+  }
+
+  bool isConformPasswordShow() {
+    isvisibleCorrect = !isvisibleCorrect;
+    return isvisibleCorrect;
   }
 }

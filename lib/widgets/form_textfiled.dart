@@ -5,17 +5,29 @@ class UserDetailFormFiled extends StatefulWidget {
   final String hintText;
   final String errorMassage;
   final TextEditingController textController;
-  final bool showText;
+
   final inputType;
   final inputAction;
-  const UserDetailFormFiled(
-      {super.key,
-      required this.hintText,
-      required this.errorMassage,
-      required this.textController,
-      required this.showText,
-      this.inputType,
-      this.inputAction});
+  final icon;
+
+  final String? Function(String?) isvaild;
+  //visibility checkers
+  final bool showText;
+  final bool Function()? isVisible;
+  final conditionWidget;
+  const UserDetailFormFiled({
+    super.key,
+    required this.hintText,
+    required this.errorMassage,
+    required this.textController,
+    required this.showText,
+    this.inputType,
+    this.inputAction,
+    required this.isvaild,
+    this.icon,
+    this.isVisible,
+    this.conditionWidget,
+  });
 
   @override
   State<UserDetailFormFiled> createState() => _UserDetailFormFiledState();
@@ -29,13 +41,13 @@ class _UserDetailFormFiledState extends State<UserDetailFormFiled> {
       textInputAction: widget.inputAction,
       obscureText: widget.showText,
       controller: widget.textController,
-      validator: (value) {
-        if (value!.isEmpty) {
-          return widget.errorMassage;
-        }
-      },
+
+      //add validate function
+      validator: widget.isvaild,
       //input feild decoration
       decoration: InputDecoration(
+        suffixIcon: widget.conditionWidget,
+
         hintText: widget.hintText,
         hintStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
         contentPadding:
@@ -55,10 +67,6 @@ class _UserDetailFormFiledState extends State<UserDetailFormFiled> {
           borderRadius: BorderRadius.circular(15),
           borderSide: BorderSide(color: kcTextFiledBorder),
         ),
-        // errorBorder: OutlineInputBorder(
-        //   borderRadius: BorderRadius.circular(15),
-        //   borderSide: BorderSide(color: Colors.red.shade300),
-        // ),
       ),
       style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
     );

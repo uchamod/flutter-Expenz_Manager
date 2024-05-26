@@ -47,6 +47,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                         showUserDetailPage = value == 3;
                       });
                     },
+                    //page list
                     children: [
                       const FrontPage(),
                       OnboardotherPage(

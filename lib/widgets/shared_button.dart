@@ -1,6 +1,7 @@
 import 'package:expenze_manager/util/constants.dart';
 import 'package:flutter/material.dart';
 
+//create shared button
 class CoustomButton extends StatefulWidget {
   final String text;
   final Color buttonColor;

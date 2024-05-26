@@ -6,12 +6,16 @@ class UserDetailFormFiled extends StatefulWidget {
   final String errorMassage;
   final TextEditingController textController;
   final bool showText;
+  final inputType;
+  final inputAction;
   const UserDetailFormFiled(
       {super.key,
       required this.hintText,
       required this.errorMassage,
       required this.textController,
-      required this.showText});
+      required this.showText,
+      this.inputType,
+      this.inputAction});
 
   @override
   State<UserDetailFormFiled> createState() => _UserDetailFormFiledState();
@@ -21,6 +25,8 @@ class _UserDetailFormFiledState extends State<UserDetailFormFiled> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: widget.inputType,
+      textInputAction: widget.inputAction,
       obscureText: widget.showText,
       controller: widget.textController,
       validator: (value) {
@@ -49,10 +55,10 @@ class _UserDetailFormFiledState extends State<UserDetailFormFiled> {
           borderRadius: BorderRadius.circular(15),
           borderSide: BorderSide(color: kcTextFiledBorder),
         ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
-          borderSide: BorderSide(color: Colors.red.shade300),
-        ),
+        // errorBorder: OutlineInputBorder(
+        //   borderRadius: BorderRadius.circular(15),
+        //   borderSide: BorderSide(color: Colors.red.shade300),
+        // ),
       ),
       style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
     );

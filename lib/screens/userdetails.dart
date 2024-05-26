@@ -1,9 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:expenze_manager/screens/homepage/homepage.dart';
+import 'package:expenze_manager/service/store_userdata.dart';
 import 'package:expenze_manager/util/constants.dart';
 import 'package:expenze_manager/widgets/form_textfiled.dart';
 import 'package:expenze_manager/widgets/shared_button.dart';
-
-import 'package:flutter/material.dart';
 
 //user Login/registation interface
 class UserDetails extends StatefulWidget {
@@ -17,23 +17,38 @@ class _UserDetailsState extends State<UserDetails> {
   //key for check the textfield validation
   final _validationKey = GlobalKey<FormState>();
   //controllers for the controle the textFileds
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _conformPasswordController =
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController conformPasswordController =
       TextEditingController();
 
   bool isChecked = false;
+  StoreUserData userdata = StoreUserData();
+  @override
+  // Future<void> initState() async {
+  //   // TODO: implement initState
+  //   _nameController.addListener(
+  //     userdata.storeData(
+  //         name: _nameController,
+  //         email: _emailController,
+  //         password: _passwordController,
+  //         conformpassword: _conformPasswordController,
+  //         context: context) as VoidCallback,
+  //   );
+  //   super.initState();
+  // }
 
   //dispose the data
   @override
   void dispose() {
     // TODO: implement dispose
-    _nameController.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
-    _conformPasswordController.dispose();
     super.dispose();
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    conformPasswordController.dispose();
+    print("dispose used");
   }
 
   @override
@@ -66,9 +81,11 @@ class _UserDetailsState extends State<UserDetails> {
                   children: [
                     //text field for username
                     UserDetailFormFiled(
+                      inputType: TextInputType.name,
+                      inputAction: TextInputAction.next,
                       hintText: "Name",
                       errorMassage: "please fill the username",
-                      textController: _nameController,
+                      textController: nameController,
                       showText: false,
                     ),
                     const SizedBox(
@@ -76,9 +93,11 @@ class _UserDetailsState extends State<UserDetails> {
                     ),
                     //text field for user email
                     UserDetailFormFiled(
+                      inputType: TextInputType.emailAddress,
+                      inputAction: TextInputAction.next,
                       hintText: "Email",
                       errorMassage: "please fill the Email",
-                      textController: _emailController,
+                      textController: emailController,
                       showText: false,
                     ),
                     const SizedBox(
@@ -86,9 +105,11 @@ class _UserDetailsState extends State<UserDetails> {
                     ),
                     //text filed for password
                     UserDetailFormFiled(
+                      inputType: TextInputType.text,
+                      inputAction: TextInputAction.next,
                       hintText: "Password",
                       errorMassage: "please fill the Password",
-                      textController: _passwordController,
+                      textController: passwordController,
                       showText: true,
                     ),
                     const SizedBox(
@@ -96,9 +117,11 @@ class _UserDetailsState extends State<UserDetails> {
                     ),
                     //text filed for confirm password
                     UserDetailFormFiled(
+                      inputType: TextInputType.text,
+                      inputAction: TextInputAction.done,
                       hintText: "Confirm Password",
                       errorMassage: "please Confirm the password",
-                      textController: _conformPasswordController,
+                      textController: conformPasswordController,
                       showText: true,
                     ),
                     const SizedBox(
@@ -135,26 +158,27 @@ class _UserDetailsState extends State<UserDetails> {
                     ),
                     //submit button
                     GestureDetector(
-                      onTap: () {
+                      onTap: () async {
                         //checke  form state is not nullable
                         if (_validationKey.currentState!.validate()) {
                           //is form is valid
-                          String userName = _nameController.text;
-                          String userEmail = _emailController.text;
-                          String userPassword = _passwordController.text;
-                          String userCoformPassword =
-                              _conformPasswordController.text;
+                          // String userName = nameController.text;
+                          // String userEmail = emailController.text;
+                          // String userPassword = passwordController.text;
+                          // String userCoformPassword =
+                          //     conformPasswordController.text;
 
-                          print(
-                              "$userName $userEmail $userPassword $userCoformPassword");
-
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const HomePage(),
-                              ));
+                          //call the user store method
+                          await userdata.storeData(
+                              context: context,
+                              nameController: nameController,
+                              emailController: emailController,
+                              passwordController: passwordController,
+                              conformPasswordController:
+                                  conformPasswordController);
                         }
                       },
+                      //coustom button
                       child: CoustomButton(
                         text: "Next",
                         buttonColor: kcButtonBlue,

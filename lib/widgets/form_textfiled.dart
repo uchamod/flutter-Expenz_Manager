@@ -6,8 +6,11 @@ class UserDetailFormFiled extends StatefulWidget {
   final String errorMassage;
   final TextEditingController textController;
 
+  // ignore: prefer_typing_uninitialized_variables
   final inputType;
+  // ignore: prefer_typing_uninitialized_variables
   final inputAction;
+  // ignore: prefer_typing_uninitialized_variables
   final icon;
 
   final String? Function(String?) isvaild;

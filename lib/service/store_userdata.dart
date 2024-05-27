@@ -38,8 +38,8 @@ class StoreUserData {
           ),
         );
       } else {
-        SharedPreferences pref = await SharedPreferences
-            .getInstance(); //initilize shared preferences
+        //initilize shared preferences
+        SharedPreferences pref = await SharedPreferences.getInstance();
         //set the store data
         await pref.setString("userName", nameController.text);
         await pref.setString("email", emailController.text);
@@ -74,5 +74,12 @@ class StoreUserData {
       );
     }
     //check the password if passwords are mis match show the alert
+  }
+
+  //check the userdata is has or not
+  Future<bool?> isRegisterd() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? userName = pref.getString("userName");
+    return userName!.isEmpty ? null : true;
   }
 }

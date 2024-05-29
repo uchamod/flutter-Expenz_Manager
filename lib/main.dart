@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
     return FutureBuilder(
       future: StoreUserData().isRegisterd(), //get the future value
       //create a future builder
+      //snapshothas the data of futuer,then we can change the context according to data of thesnapshot
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           //check if any connection error

@@ -84,6 +84,7 @@ class _UserDetailsState extends State<UserDetails> {
                         }
                       },
                     ),
+
                     const SizedBox(
                       height: 20,
                     ),
@@ -255,6 +256,9 @@ class _UserDetailsState extends State<UserDetails> {
     }
     if (!RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(value)) {
       return 'Password must contain at least one special character';
+    }
+    if (passwordController.text != conformPasswordController.text) {
+      return 'password mis mathch.pleasecheck your passwords';
     }
     return null;
   }

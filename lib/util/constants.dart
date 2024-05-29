@@ -5,5 +5,5 @@ Color kcHedingBlack = const Color(0xff0C0C0C);
 Color kcDiscription = const Color(0xff91919F);
 Color kcButtonText = const Color(0xffFFFFFF);
 Color kcTextFiledBorder = const Color(0xff91919F);
-Color kcCardGreen = const Color(0xff9DDE8B);
+Color kcCardGreen = const Color(0xff65B741);
 Color kcCardRed = const Color(0xffFF0000);

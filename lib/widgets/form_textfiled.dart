@@ -18,6 +18,7 @@ class UserDetailFormFiled extends StatefulWidget {
   final bool showText;
   final bool Function()? isVisible;
   final conditionWidget;
+  final double borderRad;
   const UserDetailFormFiled({
     super.key,
     required this.hintText,
@@ -30,6 +31,7 @@ class UserDetailFormFiled extends StatefulWidget {
     this.icon,
     this.isVisible,
     this.conditionWidget,
+    required this.borderRad,
   });
 
   @override
@@ -57,17 +59,17 @@ class _UserDetailFormFiledState extends State<UserDetailFormFiled> {
             const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
         //disable underline border
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(widget.borderRad),
           borderSide: BorderSide(color: kcTextFiledBorder),
         ),
         //active border decoration
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(widget.borderRad),
           borderSide: BorderSide(color: kcTextFiledBorder, width: 2),
         ),
         //focus border decoration
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(widget.borderRad),
           borderSide: BorderSide(color: kcTextFiledBorder),
         ),
       ),

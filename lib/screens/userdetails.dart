@@ -72,6 +72,7 @@ class _UserDetailsState extends State<UserDetails> {
                   children: [
                     //text field for username
                     UserDetailFormFiled(
+                      borderRad: 15,
                       showText: false,
                       inputType: TextInputType.name,
                       inputAction: TextInputAction.next,
@@ -90,6 +91,7 @@ class _UserDetailsState extends State<UserDetails> {
                     ),
                     //text field for user email
                     UserDetailFormFiled(
+                      borderRad: 15,
                       showText: false,
                       inputType: TextInputType.emailAddress,
                       inputAction: TextInputAction.next,
@@ -103,6 +105,7 @@ class _UserDetailsState extends State<UserDetails> {
                     ),
                     //text filed for password
                     UserDetailFormFiled(
+                      borderRad: 15,
                       showText: isvisible,
                       inputType: TextInputType.text,
                       inputAction: TextInputAction.next,
@@ -133,6 +136,7 @@ class _UserDetailsState extends State<UserDetails> {
                     ),
                     //text filed for confirm password
                     UserDetailFormFiled(
+                      borderRad: 15,
                       showText: isvisibleCorrect,
                       inputType: TextInputType.text,
                       inputAction: TextInputAction.done,

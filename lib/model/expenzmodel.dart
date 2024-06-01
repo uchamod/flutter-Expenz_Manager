@@ -17,16 +17,16 @@ Map<ExpenzCategory, Color> incomeColors = {
 };
 
 // ignore: camel_case_types
-class incomes {
+class Expenzes {
   final int Id;
   final ExpenzCategory catrgory;
   final String title;
   final String discription;
-  final double amount;
-  final DateTime date;
-  final DateTime time;
+  final String amount;
+  final String date;
+  final String time;
 
-  incomes(
+  Expenzes(
       {required this.Id,
       required this.catrgory,
       required this.title,
@@ -34,4 +34,6 @@ class incomes {
       required this.amount,
       required this.date,
       required this.time});
+
+  // List<Expenzes> expenzList = [];
 }

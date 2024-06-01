@@ -1,4 +1,7 @@
+import 'package:expenze_manager/model/datawrapper.dart';
+import 'package:expenze_manager/model/expenzmodel.dart';
 import 'package:expenze_manager/model/incomemodel.dart';
+import 'package:expenze_manager/screens/homepage/homepage.dart';
 import 'package:expenze_manager/util/constants.dart';
 import 'package:expenze_manager/widgets/form_textfiled.dart';
 import 'package:expenze_manager/widgets/shared_button.dart';
@@ -35,6 +38,8 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   //set the dateformat
   final DateFormat dateFomatter = DateFormat("y,MMMM dd");
+  //get enums
+  ExpenzCategory exCategory = ExpenzCategory.food;
   incomeCategory category = incomeCategory.freelance;
   //get current time
   TimeOfDay _selectedTime = TimeOfDay.now();
@@ -47,6 +52,10 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
     super.dispose();
   }
 
+  //classes
+  DataWrapper wrapper = DataWrapper();
+
+  int initialId = 0;
   @override
   Widget build(BuildContext context) {
     String _selectedFormateDate = dateFomatter.format(_selecteDate);
@@ -67,33 +76,68 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                   borderRadius: BorderRadius.circular(borderRadius),
                   border: Border.all(width: 2, color: kcDiscription),
                 ),
-                child: Expanded(
-                  child: DropdownButton<incomeCategory>(
-                    value: category,
-                    dropdownColor: kcButtonText,
-                    elevation: 20,
-                    isExpanded: true,
-                    // menuMaxHeight: 200,
-                    icon: const Icon(Icons.arrow_drop_down_outlined),
-                    iconSize: 28,
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        color: kcHedingBlack),
-                    items: incomeCategory.values
-                        .map(
-                          (incomeCategory newCategory) => DropdownMenuItem(
-                            value: newCategory,
-                            child: Text(newCategory.name),
-                          ),
-                        )
-                        .toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        category = value!;
-                      });
-                    },
-                  ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      //incomeList
+                      child: widget.checker == 0
+                          ? DropdownButton<incomeCategory>(
+                              value: category,
+                              dropdownColor: kcButtonText,
+                              elevation: 20,
+                              isExpanded: true,
+                              // menuMaxHeight: 200,
+                              icon: const Icon(Icons.arrow_drop_down_outlined),
+                              iconSize: 28,
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                  color: kcHedingBlack),
+                              items: incomeCategory.values
+                                  .map(
+                                    (incomeCategory newCategory) =>
+                                        DropdownMenuItem(
+                                      value: newCategory,
+                                      child: Text(newCategory.name),
+                                    ),
+                                  )
+                                  .toList(),
+                              onChanged: (value) {
+                                setState(() {
+                                  category = value!;
+                                });
+                              },
+                              //expenz list
+                            )
+                          : DropdownButton<ExpenzCategory>(
+                              value: exCategory,
+                              dropdownColor: kcButtonText,
+                              elevation: 20,
+                              isExpanded: true,
+                              // menuMaxHeight: 200,
+                              icon: const Icon(Icons.arrow_drop_down_outlined),
+                              iconSize: 28,
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                  color: kcHedingBlack),
+                              items: ExpenzCategory.values
+                                  .map(
+                                    (ExpenzCategory newCategory) =>
+                                        DropdownMenuItem(
+                                      value: newCategory,
+                                      child: Text(newCategory.name),
+                                    ),
+                                  )
+                                  .toList(),
+                              onChanged: (value) {
+                                setState(() {
+                                  exCategory = value!;
+                                });
+                              },
+                            ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(
@@ -104,7 +148,7 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                 hintText: "Title",
                 errorMassage: "pleas fill the record",
                 textController: _titleController,
-                showText: true,
+                showText: false,
                 isvaild: (value) {
                   if (value!.isEmpty) {
                     return "pleas fill the record";
@@ -119,7 +163,7 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                 hintText: "discription",
                 errorMassage: "pleas fill the record",
                 textController: _DiscriptionController,
-                showText: true,
+                showText: false,
                 isvaild: (value) {
                   if (value!.isEmpty) {
                     return "pleas fill the record";
@@ -134,7 +178,7 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                 hintText: "amount",
                 errorMassage: "pleas fill the record",
                 textController: _amountCotroller,
-                showText: true,
+                showText: false,
                 isvaild: (value) {
                   if (value!.isEmpty) {
                     return "pleas fill the record";
@@ -247,9 +291,41 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
               const SizedBox(
                 height: 20,
               ),
-              CoustomButton(
-                  text: "Add",
-                  buttonColor: widget.checker == 0 ? kcCardGreen : kcCardRed),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    if (widget.checker == 0) {
+                      wrapper.incomeList.add(Incomes(
+                          Id: initialId,
+                          catrgory: category,
+                          title: _titleController.text,
+                          discription: _DiscriptionController.text,
+                          amount: _amountCotroller.text,
+                          date: _selectedFormateDate,
+                          time:
+                              "${_selectedTime.hour} : ${_selectedTime.minute}"));
+                      HomePage();
+                    } else {
+                      wrapper.expenzList.add(
+                        Expenzes(
+                            Id: initialId,
+                            catrgory: exCategory,
+                            title: _titleController.text,
+                            discription: _DiscriptionController.text,
+                            amount: _amountCotroller.text,
+                            date: _selectedFormateDate,
+                            time:
+                                "${_selectedTime.hour} : ${_selectedTime.minute}"),
+                      );
+                      HomePage();
+                    }
+                    print(wrapper.expenzList);
+                  });
+                },
+                child: CoustomButton(
+                    text: "Add",
+                    buttonColor: widget.checker == 0 ? kcCardGreen : kcCardRed),
+              ),
             ],
           ),
         ),

@@ -16,16 +16,16 @@ Map<incomeCategory, Color> incomeColors = {
   incomeCategory.sales: const Color(0xffF8C4B4)
 };
 
-class incomes {
+class Incomes {
   final int Id;
   final incomeCategory catrgory;
   final String title;
   final String discription;
-  final double amount;
-  final DateTime date;
-  final DateTime time;
+  final String amount;
+  final String date;
+  final String time;
 
-  incomes(
+  Incomes(
       {required this.Id,
       required this.catrgory,
       required this.title,
@@ -33,4 +33,6 @@ class incomes {
       required this.amount,
       required this.date,
       required this.time});
+
+  // List<Incomes> incomeList = [];
 }

@@ -1,4 +1,5 @@
 import 'package:expenze_manager/util/constants.dart';
+import 'package:expenze_manager/widgets/reusableitem.dart';
 import 'package:flutter/material.dart';
 
 class TransactionPage extends StatefulWidget {
@@ -18,7 +19,7 @@ class _TransactionPageState extends State<TransactionPage> {
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
           child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   "See your financial report",
@@ -27,6 +28,16 @@ class _TransactionPageState extends State<TransactionPage> {
                       fontWeight: FontWeight.w600,
                       color: kcButtonBlue),
                 ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  "Expenzes",
+                  style: TextStyle(
+                      color: kcHedingBlack,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600),
+                )
               ],
             ),
           ),

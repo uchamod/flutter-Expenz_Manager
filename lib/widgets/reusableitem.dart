@@ -1,6 +1,6 @@
 import 'package:expenze_manager/util/constants.dart';
 import 'package:flutter/material.dart';
-
+//expenz or income card
 class ReusableItem extends StatefulWidget {
   final Color color;
 

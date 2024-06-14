@@ -6,19 +6,23 @@ class FrontPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Image.asset(
-          "imageassets/coin_7106294.png",
-          scale: 3,
-        ),
-        Text(
-          "Expenz  Manager",
-          style: TextStyle(
-              color: kcButtonBlue, fontSize: 32, fontWeight: FontWeight.w700),
-        )
-      ],
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            "imageassets/coin_7106294.png",
+            scale: 3,
+          ),
+          Center(
+            child: Text(
+              "Expenz  Manager",
+              style: TextStyle(
+                  color: kcButtonBlue, fontSize: 32, fontWeight: FontWeight.w700),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

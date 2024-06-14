@@ -93,6 +93,7 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                                   fontSize: 18,
                                   fontWeight: FontWeight.w500,
                                   color: kcHedingBlack),
+                                  //set the item list
                               items: incomeCategory.values
                                   .map(
                                     (incomeCategory newCategory) =>
@@ -102,6 +103,7 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                                     ),
                                   )
                                   .toList(),
+                                  //when select the item
                               onChanged: (value) {
                                 setState(() {
                                   category = value!;
@@ -121,6 +123,7 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                                   fontSize: 18,
                                   fontWeight: FontWeight.w500,
                                   color: kcHedingBlack),
+                                  //set the expenz list
                               items: ExpenzCategory.values
                                   .map(
                                     (ExpenzCategory newCategory) =>
@@ -130,6 +133,7 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                                     ),
                                   )
                                   .toList(),
+                                   //when select the item
                               onChanged: (value) {
                                 setState(() {
                                   exCategory = value!;
@@ -144,6 +148,7 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                 height: 20,
               ),
               UserDetailFormFiled(
+                inputType: TextInputType.text,
                 borderRad: borderRadius,
                 hintText: "Title",
                 errorMassage: "pleas fill the record",
@@ -159,6 +164,7 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                 height: 20,
               ),
               UserDetailFormFiled(
+                  inputType: TextInputType.text,
                 borderRad: borderRadius,
                 hintText: "discription",
                 errorMassage: "pleas fill the record",
@@ -174,6 +180,7 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                 height: 20,
               ),
               UserDetailFormFiled(
+                  inputType: TextInputType.number,
                 borderRad: borderRadius,
                 hintText: "amount",
                 errorMassage: "pleas fill the record",
@@ -304,7 +311,7 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                           date: _selectedFormateDate,
                           time:
                               "${_selectedTime.hour} : ${_selectedTime.minute}"));
-                      HomePage();
+                      const HomePage();
                     } else {
                       wrapper.expenzList.add(
                         Expenzes(
@@ -317,9 +324,9 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                             time:
                                 "${_selectedTime.hour} : ${_selectedTime.minute}"),
                       );
-                      HomePage();
+                      const HomePage();
                     }
-                    print(wrapper.expenzList);
+                  
                   });
                 },
                 child: CoustomButton(

@@ -332,8 +332,10 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                   
                   });
                 },
+                //add new item button
                 child: GestureDetector(
                   onTap: () {
+                    //save user expenz or income in shared preferrences 
                     
                   },
                   child: CoustomButton(

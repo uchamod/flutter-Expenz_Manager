@@ -76,72 +76,71 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                   borderRadius: BorderRadius.circular(borderRadius),
                   border: Border.all(width: 2, color: kcDiscription),
                 ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      //incomeList
-                      child: widget.checker == 0
-                          ? DropdownButton<incomeCategory>(
-                              value: category,
-                              dropdownColor: kcButtonText,
-                              elevation: 20,
-                              isExpanded: true,
-                              // menuMaxHeight: 200,
-                              icon: const Icon(Icons.arrow_drop_down_outlined),
-                              iconSize: 28,
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500,
-                                  color: kcHedingBlack),
-                                  //set the item list
-                              items: incomeCategory.values
-                                  .map(
-                                    (incomeCategory newCategory) =>
-                                        DropdownMenuItem(
-                                      value: newCategory,
-                                      child: Text(newCategory.name),
-                                    ),
-                                  )
-                                  .toList(),
-                                  //when select the item
-                              onChanged: (value) {
-                                setState(() {
-                                  category = value!;
-                                });
-                              },
-                              //expenz list
-                            )
-                          : DropdownButton<ExpenzCategory>(
-                              value: exCategory,
-                              dropdownColor: kcButtonText,
-                              elevation: 20,
-                              isExpanded: true,
-                              // menuMaxHeight: 200,
-                              icon: const Icon(Icons.arrow_drop_down_outlined),
-                              iconSize: 28,
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500,
-                                  color: kcHedingBlack),
-                                  //set the expenz list
-                              items: ExpenzCategory.values
-                                  .map(
-                                    (ExpenzCategory newCategory) =>
-                                        DropdownMenuItem(
-                                      value: newCategory,
-                                      child: Text(newCategory.name),
-                                    ),
-                                  )
-                                  .toList(),
-                                   //when select the item
-                              onChanged: (value) {
-                                setState(() {
-                                  exCategory = value!;
-                                });
-                              },
-                            ),
-                    ),
-                  ],
+                child: Expanded(
+                  //incomeList
+                  child: widget.checker == 0
+                      ? DropdownButton<incomeCategory>(
+                          value: category,
+                          dropdownColor: kcButtonText,
+                          borderRadius: BorderRadius.circular(borderRadius),
+                          menuMaxHeight:double.infinity,
+                         // elevation: 20,
+                          isExpanded: true,
+                          // menuMaxHeight: 200,
+                          icon: const Icon(Icons.arrow_drop_down_outlined),
+                          iconSize: 28,
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                              color: kcHedingBlack),
+                              //set the item list
+                          items: incomeCategory.values
+                              .map(
+                                (incomeCategory newCategory) =>
+                                    DropdownMenuItem(
+                                  value: newCategory,
+                                  child: Text(newCategory.name),
+                                ),
+                              )
+                              .toList(),
+                              //when select the item
+                          onChanged: (value) {
+                            setState(() {
+                              category = value!;
+                            });
+                          },
+                          //expenz list
+                        )
+                      : DropdownButton<ExpenzCategory>(
+                          value: exCategory,
+                          dropdownColor: kcButtonText,
+
+                          borderRadius: BorderRadius.circular(borderRadius),
+                          isExpanded: true,
+                           menuMaxHeight:double.infinity,
+                          icon: const Icon(Icons.arrow_drop_down_outlined),
+                          iconSize: 28,
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                              color: kcHedingBlack),
+                              //set the expenz list
+                          items: ExpenzCategory.values
+                              .map(
+                                (ExpenzCategory newCategory) =>
+                                    DropdownMenuItem(
+                                  value: newCategory,
+                                  child: Text(newCategory.name),
+                                ),
+                              )
+                              .toList(),
+                               //when select the item
+                          onChanged: (value) {
+                            setState(() {
+                              exCategory = value!;
+                            });
+                          },
+                        ),
                 ),
               ),
               const SizedBox(
@@ -233,6 +232,7 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                   Text(
                     _selectedFormateDate,
                     style: TextStyle(
+                        
                         color: kcHedingBlack,
                         fontSize: 14,
                         fontWeight: FontWeight.w500),
@@ -252,6 +252,7 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                       _showtimePicker();
                     },
                     child: Container(
+                      
                       padding: const EdgeInsets.symmetric(
                           horizontal: 15, vertical: 10),
                       decoration: BoxDecoration(
@@ -288,10 +289,12 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                   ),
                 ],
               ),
+
               const SizedBox(
                 height: 20,
               ),
               Divider(
+
                 color: kcDiscription,
                 height: 2,
               ),
@@ -303,7 +306,7 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                   setState(() {
                     if (widget.checker == 0) {
                       wrapper.incomeList.add(Incomes(
-                          Id: initialId,
+                          id: initialId,
                           catrgory: category,
                           title: _titleController.text,
                           discription: _DiscriptionController.text,
@@ -315,7 +318,7 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                     } else {
                       wrapper.expenzList.add(
                         Expenzes(
-                            Id: initialId,
+                            id: initialId,
                             catrgory: exCategory,
                             title: _titleController.text,
                             discription: _DiscriptionController.text,
@@ -329,9 +332,14 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                   
                   });
                 },
-                child: CoustomButton(
-                    text: "Add",
-                    buttonColor: widget.checker == 0 ? kcCardGreen : kcCardRed),
+                child: GestureDetector(
+                  onTap: () {
+                    
+                  },
+                  child: CoustomButton(
+                      text: "Add",
+                      buttonColor: widget.checker == 0 ? kcCardGreen : kcCardRed),
+                ),
               ),
             ],
           ),
@@ -339,6 +347,7 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
       ),
     );
   }
+
 
   //functions
   //to show the calender

@@ -17,7 +17,7 @@ Map<incomeCategory, Color> incomeColors = {
 };
 
 class Incomes {
-  final int Id;
+  final int id;
   final incomeCategory catrgory;
   final String title;
   final String discription;
@@ -26,7 +26,7 @@ class Incomes {
   final String time;
 
   Incomes(
-      {required this.Id,
+      {required this.id,
       required this.catrgory,
       required this.title,
       required this.discription,
@@ -34,5 +34,28 @@ class Incomes {
       required this.date,
       required this.time});
 
-  // List<Incomes> incomeList = [];
+ //serilization dart objct ot json object
+ Map<String, dynamic> toJSON() {
+    return {
+      "id": id,
+      "category": catrgory.index,
+      "title": title,
+      "discription": discription,
+      "amount": amount,
+      "date": date,
+      "time": time
+    };
+  }
+
+//deserelization json object to dart object
+  factory Incomes.fromJSON(Map<String, dynamic> json) {
+    return Incomes(
+        id: json["id"],
+        catrgory: incomeCategory.values[json["category"]],
+        title: json["title"],
+        discription: json["discription"],
+        amount: json["amount"],
+        date: json["date"],
+        time: json["time"]);
+  }
 }

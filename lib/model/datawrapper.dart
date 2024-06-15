@@ -4,7 +4,7 @@ import 'package:expenze_manager/model/incomemodel.dart';
 class DataWrapper {
   List<Incomes> incomeList = [
     Incomes(
-        Id: 1,
+        id: 1,
         catrgory: incomeCategory.freelance,
         title: "freelance",
         discription: "discripiton",
@@ -12,7 +12,7 @@ class DataWrapper {
         date: "2002",
         time: "10 am"),
     Incomes(
-        Id: 1,
+        id: 1,
         catrgory: incomeCategory.freelance,
         title: "passive",
         discription: "discripiton",
@@ -22,7 +22,7 @@ class DataWrapper {
   ];
   List<Expenzes> expenzList = [
     Expenzes(
-        Id: 1,
+        id: 1,
         catrgory: ExpenzCategory.entertainment,
         title: "food",
         discription: "discripiton",

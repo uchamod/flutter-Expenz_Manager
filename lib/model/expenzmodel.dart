@@ -18,7 +18,7 @@ Map<ExpenzCategory, Color> incomeColors = {
 
 // ignore: camel_case_types
 class Expenzes {
-  final int Id;
+  final int id;
   final ExpenzCategory catrgory;
   final String title;
   final String discription;
@@ -27,13 +27,35 @@ class Expenzes {
   final String time;
 
   Expenzes(
-      {required this.Id,
+      {required this.id,
       required this.catrgory,
       required this.title,
       required this.discription,
       required this.amount,
       required this.date,
       required this.time});
+  //serilization dart objet to jason object
+  Map<String, dynamic> toJSON() {
+    return {
+      "id": id,
+      "category": catrgory.index,
+      "title": title,
+      "discription": discription,
+      "amount": amount,
+      "date": date,
+      "time": time
+    };
+  }
 
-  // List<Expenzes> expenzList = [];
+//deserelization json object to dart object
+  factory Expenzes.fromJSON(Map<String, dynamic> json) {
+    return Expenzes(
+        id: json["id"],
+        catrgory: ExpenzCategory.values[json["category"]],
+        title: json["title"],
+        discription: json["discription"],
+        amount: json["amount"],
+        date: json["date"],
+        time: json["time"]);
+  }
 }

@@ -23,6 +23,7 @@ class ExpenzeService {
         expenList = existingExpenzes
             .map((e) => Expenzes.fromJSON(json.decode(e)))
             .toList();
+        print("not null");
       }
       expenList.add(expenz);
       //expenz list to decoded string list
@@ -61,8 +62,6 @@ class ExpenzeService {
     }
   }
 
- 
-  
   //load the current expenzes
   Future<List<Expenzes>>? loadExpenzes() async {
     try {
@@ -76,7 +75,6 @@ class ExpenzeService {
       }
       return expenList;
     } catch (err) {
-   
       return [];
     }
   }

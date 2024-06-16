@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               fontFamily: "Poppins",
             ),
+            
             home: Wrapper(isUserNameHas: userNameData),
           );
         }

@@ -2,6 +2,7 @@ import 'package:expenze_manager/model/datawrapper.dart';
 import 'package:expenze_manager/model/expenzmodel.dart';
 import 'package:expenze_manager/model/incomemodel.dart';
 import 'package:expenze_manager/screens/homepage/homepage.dart';
+import 'package:expenze_manager/service/expenz_service.dart';
 import 'package:expenze_manager/util/constants.dart';
 import 'package:expenze_manager/widgets/form_textfiled.dart';
 import 'package:expenze_manager/widgets/shared_button.dart';
@@ -10,6 +11,7 @@ import 'package:intl/intl.dart';
 
 class ItemAddingForm extends StatefulWidget {
   final int checker;
+
   const ItemAddingForm({super.key, required this.checker});
 
   @override
@@ -83,8 +85,8 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                           value: category,
                           dropdownColor: kcButtonText,
                           borderRadius: BorderRadius.circular(borderRadius),
-                          menuMaxHeight:double.infinity,
-                         // elevation: 20,
+                          menuMaxHeight: double.infinity,
+                          // elevation: 20,
                           isExpanded: true,
                           // menuMaxHeight: 200,
                           icon: const Icon(Icons.arrow_drop_down_outlined),
@@ -93,7 +95,7 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                               fontSize: 18,
                               fontWeight: FontWeight.w500,
                               color: kcHedingBlack),
-                              //set the item list
+                          //set the item list
                           items: incomeCategory.values
                               .map(
                                 (incomeCategory newCategory) =>
@@ -103,7 +105,7 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                                 ),
                               )
                               .toList(),
-                              //when select the item
+                          //when select the item
                           onChanged: (value) {
                             setState(() {
                               category = value!;
@@ -117,14 +119,14 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
 
                           borderRadius: BorderRadius.circular(borderRadius),
                           isExpanded: true,
-                           menuMaxHeight:double.infinity,
+                          menuMaxHeight: double.infinity,
                           icon: const Icon(Icons.arrow_drop_down_outlined),
                           iconSize: 28,
                           style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w500,
                               color: kcHedingBlack),
-                              //set the expenz list
+                          //set the expenz list
                           items: ExpenzCategory.values
                               .map(
                                 (ExpenzCategory newCategory) =>
@@ -134,7 +136,7 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                                 ),
                               )
                               .toList(),
-                               //when select the item
+                          //when select the item
                           onChanged: (value) {
                             setState(() {
                               exCategory = value!;
@@ -163,7 +165,7 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                 height: 20,
               ),
               UserDetailFormFiled(
-                  inputType: TextInputType.text,
+                inputType: TextInputType.text,
                 borderRad: borderRadius,
                 hintText: "discription",
                 errorMassage: "pleas fill the record",
@@ -179,7 +181,7 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                 height: 20,
               ),
               UserDetailFormFiled(
-                  inputType: TextInputType.number,
+                inputType: TextInputType.number,
                 borderRad: borderRadius,
                 hintText: "amount",
                 errorMassage: "pleas fill the record",
@@ -232,7 +234,6 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                   Text(
                     _selectedFormateDate,
                     style: TextStyle(
-                        
                         color: kcHedingBlack,
                         fontSize: 14,
                         fontWeight: FontWeight.w500),
@@ -252,7 +253,6 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                       _showtimePicker();
                     },
                     child: Container(
-                      
                       padding: const EdgeInsets.symmetric(
                           horizontal: 15, vertical: 10),
                       decoration: BoxDecoration(
@@ -294,7 +294,6 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                 height: 20,
               ),
               Divider(
-
                 color: kcDiscription,
                 height: 2,
               ),
@@ -329,18 +328,35 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                       );
                       const HomePage();
                     }
-                  
                   });
                 },
                 //add new item button
                 child: GestureDetector(
-                  onTap: () {
-                    //save user expenz or income in shared preferrences 
-                    
+                  onTap: () async {
+                    //save user expenz or income in shared preferrences
+                    List<Expenzes>? existingtExpenzList =
+                        await ExpenzeService().loadExpenzes();
+
+                    //create a expenze to store
+                    Expenzes expenz = Expenzes(
+                        id: existingtExpenzList!.length + 1,
+                        catrgory: exCategory,
+                        title: _titleController.text,
+                        discription: _DiscriptionController.text,
+                        amount: _amountCotroller.text,
+                        date: _selectedFormateDate,
+                        time: _selectedTime.toString());
+                    if (context.mounted) {
+                      setState(() {
+                        ExpenzeService().saveExpenz(expenz, context);
+                      });
+                    }
+                    //print(ExpenzeService().loadExpenzes());
                   },
                   child: CoustomButton(
                       text: "Add",
-                      buttonColor: widget.checker == 0 ? kcCardGreen : kcCardRed),
+                      buttonColor:
+                          widget.checker == 0 ? kcCardGreen : kcCardRed),
                 ),
               ),
             ],
@@ -349,7 +365,6 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
       ),
     );
   }
-
 
   //functions
   //to show the calender

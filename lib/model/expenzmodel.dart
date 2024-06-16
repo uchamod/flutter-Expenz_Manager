@@ -18,7 +18,7 @@ Map<ExpenzCategory, Color> incomeColors = {
 
 // ignore: camel_case_types
 class Expenzes {
-  final int id;
+  final int? id;
   final ExpenzCategory catrgory;
   final String title;
   final String discription;

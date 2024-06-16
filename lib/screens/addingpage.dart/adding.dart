@@ -1,8 +1,10 @@
+import 'package:expenze_manager/model/expenzmodel.dart';
 import 'package:expenze_manager/util/constants.dart';
 import 'package:expenze_manager/widgets/itemaddingform.dart';
 import 'package:flutter/material.dart';
 
 class AddingPage extends StatefulWidget {
+
   const AddingPage({super.key});
 
   @override
@@ -133,26 +135,26 @@ class _AddingPageState extends State<AddingPage> {
                           bottom: 20,
                           right: 15,
                           child: FloatingActionButton(
-                              backgroundColor: kcButtonText,
-                              splashColor: kcDiscription,
-                              child: Icon(
-                                Icons.add,
-                                size: 35,
-                                color: kcButtonBlue,
-                              ),
-                              //modalbuttonsheet for show the expenz adding form
-                            
-                              onPressed: () {
-                                showModalBottomSheet(
-                                    context: context,
-                                    builder: (context) {
-                                      //form sheet
-                                      return ItemAddingForm(
-                                        checker: _pageChecker,
-                                      );
-                                    });
-                              },
-                              ))
+                            backgroundColor: kcButtonText,
+                            splashColor: kcDiscription,
+                            child: Icon(
+                              Icons.add,
+                              size: 35,
+                              color: kcButtonBlue,
+                            ),
+                            //modalbuttonsheet for show the expenz adding form
+
+                            onPressed: () {
+                              showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    //form sheet
+                                    return ItemAddingForm(
+                                      checker: _pageChecker,
+                                    );
+                                  });
+                            },
+                          ))
                     ],
                   ),
                 ),

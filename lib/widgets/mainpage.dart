@@ -3,6 +3,7 @@ import 'package:expenze_manager/screens/budgetpage/budget.dart';
 import 'package:expenze_manager/screens/homepage/homepage.dart';
 import 'package:expenze_manager/screens/profilepage/profile.dart';
 import 'package:expenze_manager/screens/transactionpage/transaction.dart';
+import 'package:expenze_manager/service/expenz_service.dart';
 import 'package:expenze_manager/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,7 +19,7 @@ int _selectIndex = 0;
 List<Widget> screens = [
   const HomePage(),
   const TransactionPage(),
-  const AddingPage(),
+  AddingPage(),
   const BudgetPage(),
   const ProfilePage()
 ];

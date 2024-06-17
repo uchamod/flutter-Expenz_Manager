@@ -21,7 +21,7 @@ class Incomes {
   final incomeCategory catrgory;
   final String title;
   final String discription;
-  final String amount;
+  final dynamic amount;
   final String date;
   final String time;
 

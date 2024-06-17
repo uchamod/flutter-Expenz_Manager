@@ -2,10 +2,12 @@ import 'package:expenze_manager/service/store_userdata.dart';
 import 'package:expenze_manager/util/constants.dart';
 import 'package:expenze_manager/widgets/fullexpenzshowwidget.dart';
 import 'package:expenze_manager/widgets/linerdigram.dart';
+import 'package:expenze_manager/widgets/reusableitem.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+ // final List<dynamic> cardList;
+  const HomePage({super.key,});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -81,10 +83,12 @@ class _HomePageState extends State<HomePage> {
                       FullExpenzShowCard(
                           icon: Icons.arrow_downward_rounded,
                           title: "Income",
+                          amount: "\$1000",
                           color: kcCardGreen),
                       FullExpenzShowCard(
                           icon: Icons.arrow_upward,
                           title: "Expenz",
+                          amount: "\$1500",
                           color: kcCardRed)
                     ],
                   ),
@@ -128,7 +132,11 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.27,
                     child: ListView.builder(
-                      itemBuilder: (context, index) {},
+                  
+                     
+                      itemBuilder: (context, index) {
+                       
+                      },
                     ),
                   )
                 ],

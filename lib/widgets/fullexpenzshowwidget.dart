@@ -5,11 +5,12 @@ class FullExpenzShowCard extends StatefulWidget {
   final IconData icon;
   final String title;
   final Color color;
+  final String amount;
   const FullExpenzShowCard(
       {super.key,
       required this.icon,
       required this.title,
-      required this.color});
+      required this.color, required this.amount});
 
   @override
   State<FullExpenzShowCard> createState() => _FullExpenzShowCardState();
@@ -50,7 +51,7 @@ class _FullExpenzShowCardState extends State<FullExpenzShowCard> {
                       fontWeight: FontWeight.w500),
                 ),
                 Text(
-                  "\$1000",
+                 widget.amount,
                   style: TextStyle(
                       color: kcButtonText,
                       fontSize: 18,

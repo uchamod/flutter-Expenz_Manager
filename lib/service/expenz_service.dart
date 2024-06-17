@@ -95,7 +95,7 @@ class ExpenzeService {
         pref.setStringList(expenzKey, updatedExpenzList);
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              duration: const Duration(seconds: 3),
+              duration: const Duration(seconds: 1),
               backgroundColor: kcButtonBlue,
               content: Text(
                 "Expenz deleted succsussfuly",
@@ -107,7 +107,7 @@ class ExpenzeService {
       if (context.mounted) {
         print(err);
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            duration: const Duration(seconds: 3),
+            duration: const Duration(seconds: 1),
             backgroundColor: kcCardRed,
             content: Text(
               "something went wrong",

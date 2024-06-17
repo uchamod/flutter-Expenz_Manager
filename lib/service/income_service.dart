@@ -9,13 +9,14 @@ class IncomeService {
   //income key
   static const String _incomeKey = "incomes";
   //income list
-  List<Incomes> incomeList = [];
+  //List<Incomes> incomeList = [];
 
 //methos for save income
   Future<void> saveIncome(Incomes income, BuildContext context) async {
     try {
       SharedPreferences pref = await SharedPreferences.getInstance();
       List<String>? existingIncomeList = pref.getStringList(_incomeKey);
+      List<Incomes> incomeList = [];
       if (existingIncomeList != null) {
         incomeList = existingIncomeList
             .map((e) => Incomes.fromJSON(jsonDecode(e)))
@@ -61,6 +62,7 @@ class IncomeService {
     try {
       SharedPreferences pref = await SharedPreferences.getInstance();
       List<String>? existingIncomeList = pref.getStringList(_incomeKey);
+      List<Incomes> incomeList = [];
       //get existing  income list
       if (existingIncomeList != null) {
         incomeList = existingIncomeList
@@ -83,19 +85,20 @@ class IncomeService {
     try {
       SharedPreferences pref = await SharedPreferences.getInstance();
       List<String>? existingExpenzes = pref.getStringList(_incomeKey);
+      List<Incomes> incomeList = [];
       if (existingExpenzes != null) {
         incomeList = existingExpenzes
             .map((e) => Incomes.fromJSON(json.decode(e)))
             .toList();
         //remove the expenz
-       incomeList.removeWhere((element) => element.id == id);
+        incomeList.removeWhere((element) => element.id == id);
         //encode the expenz list to json and store it
         List<String> updatedExpenzList =
             incomeList.map((e) => json.encode(e.toJSON())).toList();
         pref.setStringList(_incomeKey, updatedExpenzList);
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              duration: const Duration(seconds: 3),
+              duration: const Duration(seconds: 1),
               backgroundColor: kcButtonBlue,
               content: Text(
                 "Income deleted succsussfuly",
@@ -107,7 +110,7 @@ class IncomeService {
       if (context.mounted) {
         print(err);
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            duration: const Duration(seconds: 3),
+            duration: const Duration(seconds: 1),
             backgroundColor: kcCardRed,
             content: Text(
               "something went wrong",

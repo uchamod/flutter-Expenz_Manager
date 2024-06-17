@@ -65,7 +65,7 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
   int initialId = 0;
   @override
   Widget build(BuildContext context) {
-    String _selectedFormateDate = dateFomatter.format(_selecteDate);
+    String selectedFormateDate = dateFomatter.format(_selecteDate);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
       child: SingleChildScrollView(
@@ -238,7 +238,7 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                   ),
                   //show date
                   Text(
-                    _selectedFormateDate,
+                    selectedFormateDate,
                     style: TextStyle(
                         color: kcHedingBlack,
                         fontSize: 14,
@@ -321,8 +321,8 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                         catrgory: inCategory,
                         title: _titleController.text,
                         discription: _DiscriptionController.text,
-                        amount: _amountCotroller.text,
-                        date: _selectedFormateDate,
+                        amount:  _amountCotroller.text.isEmpty ? 0 : double.parse(_amountCotroller.text),
+                        date: selectedFormateDate,
                         time:
                             "${_selectedTime.hour} : ${_selectedTime.minute}  ${_selectedTime.period.name}");
 
@@ -346,8 +346,8 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                         catrgory: exCategory,
                         title: _titleController.text,
                         discription: _DiscriptionController.text,
-                        amount: _amountCotroller.text,
-                        date: _selectedFormateDate,
+                        amount: _amountCotroller.text.isEmpty ? 0 : double.parse(_amountCotroller.text),
+                        date: selectedFormateDate,
                         time:
                             "${_selectedTime.hour} : ${_selectedTime.minute}  ${_selectedTime.period.name}");
                     if (context.mounted) {

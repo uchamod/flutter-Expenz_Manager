@@ -7,7 +7,7 @@ class ReusableItem extends StatefulWidget {
 
   final String title;
   final String discription;
-  final String amount;
+  final dynamic amount;
   final String time;
   final Icon image;
   const ReusableItem(
@@ -88,7 +88,7 @@ class _ReusableItemState extends State<ReusableItem> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       //card amount
-                      Text(widget.amount,
+                      Text(widget.amount.toString(),
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,

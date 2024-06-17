@@ -27,6 +27,7 @@ class _LinerDigramState extends State<LinerDigram> {
           borderData: FlBorderData(show: false),
           lineTouchData: const LineTouchData(enabled: true),
           //define border titles
+
           titlesData: const FlTitlesData(
             bottomTitles: AxisTitles(
               sideTitles: SideTitles(showTitles: false),
@@ -41,8 +42,10 @@ class _LinerDigramState extends State<LinerDigram> {
               sideTitles: SideTitles(showTitles: false),
             ),
           ),
+          //line bar data
           lineBarsData: [
             LineChartBarData(
+              //line styling
               shadow: Shadow(
                   blurRadius: 2, offset: Offset(1, 1), color: kcDiscription),
               barWidth: 6,
@@ -58,6 +61,7 @@ class _LinerDigramState extends State<LinerDigram> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter),
               ),
+              //line data
               dotData: const FlDotData(show: false),
               spots: data.spots,
             ),

@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 // ignore: camel_case_types
 enum ExpenzCategory { food, helth, vechical, entertainment }
 
-Map<ExpenzCategory, String> expenzCategoryImages = {
-  ExpenzCategory.food: "imageassets/expenze/icons8-circus-64.png",
-  ExpenzCategory.helth: "imageassets/expenze/icons8-health-48.png",
-  ExpenzCategory.vechical: "imageassets/expenze/icons8-car-64.png",
-  ExpenzCategory.entertainment: "imageassets/expenze/icons8-edible-48.png"
+Map<ExpenzCategory, Icon> expenzCategoryImages = {
+  ExpenzCategory.food: const Icon(Icons.food_bank_outlined,color: Colors.green,size: 35,),
+  ExpenzCategory.helth: const Icon(Icons.health_and_safety_outlined,color: Colors.red,size: 35,),
+  ExpenzCategory.vechical: const Icon(Icons.car_rental_outlined,color: Colors.blue,size: 35,),
+  ExpenzCategory.entertainment:const Icon(Icons.music_note_outlined,color: Colors.orange,size: 35,)
 };
 Map<ExpenzCategory, Color> expenzColors = {
   ExpenzCategory.food: const Color(0xff5FD068),

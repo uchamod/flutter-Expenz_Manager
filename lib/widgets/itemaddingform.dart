@@ -10,8 +10,13 @@ import 'package:intl/intl.dart';
 
 class ItemAddingForm extends StatefulWidget {
   final int checker;
-
-  const ItemAddingForm({super.key, required this.checker});
+  final Function(Expenzes) addnewExpenz;
+  final Function(Incomes) addnewIncome;
+  const ItemAddingForm(
+      {super.key,
+      required this.checker,
+      required this.addnewExpenz,
+      required this.addnewIncome});
 
   @override
   State<ItemAddingForm> createState() => _ItemAddingFormState();
@@ -45,7 +50,7 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
 
   TimeOfDay _selectedTime = TimeOfDay.now();
   DateTime _selecteDate = DateTime.now();
- 
+
   //dispose
   @override
   void dispose() {
@@ -233,7 +238,7 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                   ),
                   //show date
                   Text(
-                   _selectedFormateDate,
+                    _selectedFormateDate,
                     style: TextStyle(
                         color: kcHedingBlack,
                         fontSize: 14,
@@ -283,8 +288,7 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                   ),
                   //show time
                   Text(
-                   "${ _selectedTime.hour} : ${_selectedTime.minute}"
-                    ,
+                    "${_selectedTime.hour} : ${_selectedTime.minute} ${_selectedTime.period.name}",
                     style: TextStyle(
                         color: kcHedingBlack,
                         fontSize: 14,
@@ -304,94 +308,64 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                 height: 20,
               ),
               GestureDetector(
-                onTap: () {
-                  // setState(() {
-                  //   if (widget.checker == 0) {
-                  //     wrapper.incomeList.add(Incomes(
-                  //         id: initialId,
-                  //         catrgory: inCategory,
-                  //         title: _titleController.text,
-                  //         discription: _DiscriptionController.text,
-                  //         amount: _amountCotroller.text,
-                  //         date: _selectedFormateDate,
-                  //         time:
-                  //             "${_selectedTime.hour} : ${_selectedTime.minute}"));
-                  //     const HomePage();
-                  //   } else {
-                  //     wrapper.expenzList.add(
-                  //       Expenzes(
-                  //           id: initialId,
-                  //           catrgory: exCategory,
-                  //           title: _titleController.text,
-                  //           discription: _DiscriptionController.text,
-                  //           amount: _amountCotroller.text,
-                  //           date: _selectedFormateDate,
-                  //           time:
-                  //               "${_selectedTime.hour} : ${_selectedTime.minute}"),
-                  //     );
-                  //     const HomePage();
-                  //   }
-                  // });
-                },
-                //add new item button
-                child: GestureDetector(
-                  onTap: () async {
-                    //save user expenz or income in shared preferrences
-                    if (widget.checker == 0) {
-                      //add new income
-                      List<Incomes>? existingtIncomeList =
-                          await IncomeService().loadIncome();
+                onTap: () async {
+                  //save user expenz or income in shared preferrences
+                  if (widget.checker == 0) {
+                    //add new income
+                    List<Incomes>? existingtIncomeList =
+                        await IncomeService().loadIncome();
 
-                      //create a expenze to store
-                      Incomes income = Incomes(
-                          id: existingtIncomeList!.length + 1,
-                          catrgory: inCategory,
-                          title: _titleController.text,
-                          discription: _DiscriptionController.text,
-                          amount: _amountCotroller.text,
-                          date: _selectedFormateDate,
-                          time:  "${ _selectedTime.hour} : ${_selectedTime.minute}");
-                      if (context.mounted) {
-                        setState(() {
-                          IncomeService().saveIncome(income, context);
-                        });
-                      }
-                      //clear the data
-                      _DiscriptionController.clear();
-                      _amountCotroller.clear();
-                      _titleController.clear();
-                    } else {
-                      //add new expenz
-                      List<Expenzes>? existingtExpenzList =
-                          await ExpenzeService().loadExpenzes();
+                    //create a expenze to store
+                    Incomes income = Incomes(
+                        id: existingtIncomeList!.length + 1,
+                        catrgory: inCategory,
+                        title: _titleController.text,
+                        discription: _DiscriptionController.text,
+                        amount: _amountCotroller.text,
+                        date: _selectedFormateDate,
+                        time:
+                            "${_selectedTime.hour} : ${_selectedTime.minute}  ${_selectedTime.period.name}");
 
-                      //create a expenze to store
-                      Expenzes expenz = Expenzes(
-                          id: existingtExpenzList!.length + 1,
-                          catrgory: exCategory,
-                          title: _titleController.text,
-                          discription: _DiscriptionController.text,
-                          amount: _amountCotroller.text,
-                          date: _selectedFormateDate,
-                          time: "${ _selectedTime.hour} : ${_selectedTime.minute}" );
-                      if (context.mounted) {
-                        setState(() {
-                          ExpenzeService().saveExpenz(expenz, context);
-                        });
-                      }
-                      //clear the data
-                      _DiscriptionController.clear();
-                      _amountCotroller.clear();
-                      _titleController.clear();
+                    if (context.mounted) {
+                      setState(() {
+                        widget.addnewIncome(income);
+                      });
                     }
+                    //clear the data
+                    _DiscriptionController.clear();
+                    _amountCotroller.clear();
+                    _titleController.clear();
+                  } else {
+                    //add new expenz
+                    List<Expenzes>? existingtExpenzList =
+                        await ExpenzeService().loadExpenzes();
 
-                    //print(ExpenzeService().loadExpenzes());
-                  },
-                  child: CoustomButton(
-                      text: "Add",
-                      buttonColor:
-                          widget.checker == 0 ? kcCardGreen : kcCardRed),
-                ),
+                    //create a expenze to store
+                    Expenzes expenz = Expenzes(
+                        id: existingtExpenzList!.length + 1,
+                        catrgory: exCategory,
+                        title: _titleController.text,
+                        discription: _DiscriptionController.text,
+                        amount: _amountCotroller.text,
+                        date: _selectedFormateDate,
+                        time:
+                            "${_selectedTime.hour} : ${_selectedTime.minute}  ${_selectedTime.period.name}");
+                    if (context.mounted) {
+                      setState(() {
+                        widget.addnewExpenz(expenz);
+                      });
+                    }
+                    //clear the data
+                    _DiscriptionController.clear();
+                    _amountCotroller.clear();
+                    _titleController.clear();
+                  }
+
+                  //print(ExpenzeService().loadExpenzes());
+                },
+                child: CoustomButton(
+                    text: "Add",
+                    buttonColor: widget.checker == 0 ? kcCardGreen : kcCardRed),
               ),
             ],
           ),
@@ -429,7 +403,6 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
       setState(() {
         _selectedTime = settime!;
       });
-
     } catch (err) {}
   }
 }

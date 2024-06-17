@@ -77,4 +77,43 @@ class IncomeService {
       return [];
     }
   }
+
+  //delete an Income
+  Future<void> deleteExpenz(int id, BuildContext context) async {
+    try {
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      List<String>? existingExpenzes = pref.getStringList(_incomeKey);
+      if (existingExpenzes != null) {
+        incomeList = existingExpenzes
+            .map((e) => Incomes.fromJSON(json.decode(e)))
+            .toList();
+        //remove the expenz
+       incomeList.removeWhere((element) => element.id == id);
+        //encode the expenz list to json and store it
+        List<String> updatedExpenzList =
+            incomeList.map((e) => json.encode(e.toJSON())).toList();
+        pref.setStringList(_incomeKey, updatedExpenzList);
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              duration: const Duration(seconds: 3),
+              backgroundColor: kcButtonBlue,
+              content: Text(
+                "Income deleted succsussfuly",
+                style: TextStyle(color: kcButtonText),
+              )));
+        }
+      }
+    } catch (err) {
+      if (context.mounted) {
+        print(err);
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            duration: const Duration(seconds: 3),
+            backgroundColor: kcCardRed,
+            content: Text(
+              "something went wrong",
+              style: TextStyle(color: kcButtonText),
+            )));
+      }
+    }
+  }
 }

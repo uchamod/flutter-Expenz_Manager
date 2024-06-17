@@ -9,7 +9,7 @@ class ReusableItem extends StatefulWidget {
   final String discription;
   final String amount;
   final String time;
-  final String image;
+  final Icon image;
   const ReusableItem(
       {super.key,
       required this.color,
@@ -36,8 +36,8 @@ class _ReusableItemState extends State<ReusableItem> {
             color: kcButtonText,
             boxShadow: [
               BoxShadow(
-                //  blurRadius: 1,
-                color: kcDiscription,
+                 blurRadius: 1,
+                color: kccardShadow,
                 offset: const Offset(0, 1),
                 spreadRadius: 0,
               ),
@@ -48,15 +48,12 @@ class _ReusableItemState extends State<ReusableItem> {
           children: [
             //first widget
             Container(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(10),
                   color: widget.color.withOpacity(0.3)),
-              child: Image.asset(
-                widget.image,
-                scale: 30,
-                fit: BoxFit.cover,
-              ),
+             
+              child:widget.image,
             ),
             const SizedBox(
               width: 10,

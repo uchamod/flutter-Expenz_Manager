@@ -1,11 +1,14 @@
 
+import 'package:expenze_manager/model/expenzmodel.dart';
+import 'package:expenze_manager/model/incomemodel.dart';
 import 'package:expenze_manager/util/constants.dart';
 import 'package:expenze_manager/widgets/itemaddingform.dart';
 import 'package:flutter/material.dart';
 
 class AddingPage extends StatefulWidget {
-
-  const AddingPage({super.key});
+  final Function(Expenzes) expenz;
+  final Function(Incomes) income;
+  const AddingPage({super.key, required this.expenz, required this.income});
 
   @override
   State<AddingPage> createState() => _AddingPageState();
@@ -150,6 +153,8 @@ class _AddingPageState extends State<AddingPage> {
                                   builder: (context) {
                                     //form sheet
                                     return ItemAddingForm(
+                                      addnewExpenz: widget.expenz,
+                                      addnewIncome: widget.income,
                                       checker: _pageChecker,
                                     );
                                   });

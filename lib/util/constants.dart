@@ -8,4 +8,6 @@ Color kcTextFiledBorder = const Color(0xff91919F);
 Color kcCardGreen = const Color(0xff00A86B);
 Color kcCardRed = const Color(0xffFD3C4A);
 Color kcCardyellow = const Color(0xffFCAC12);
+Color kccardShadow = const Color(0xffE4E4E4);
 Color kcCardlightblue = const Color.fromARGB(255, 3, 110, 168);
+

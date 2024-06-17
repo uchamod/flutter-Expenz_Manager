@@ -8,11 +8,14 @@ class TransactionPage extends StatefulWidget {
   // final Function() addnewExpenzes;
   final List<Expenzes>? expenzList;
   final List<Incomes>? IncomeList;
-
+  final void Function(Expenzes) deleteExpenz;
+  final void Function(Incomes) deleteIncome;
   const TransactionPage({
     super.key,
     required this.expenzList,
     required this.IncomeList,
+    required this.deleteExpenz,
+    required this.deleteIncome,
   });
 
   @override
@@ -59,17 +62,25 @@ class _TransactionPageState extends State<TransactionPage> {
                           itemCount: widget.expenzList?.length,
                           itemBuilder: (context, index) {
                             //  fetchExpenzes();
-                            final Expenzes? expenz =
-                                widget.expenzList?[index];
-          
-                            return ReusableItem(
-                                color: expenzColors[expenz!.catrgory]!,
-                                title: expenz.title,
-                                discription: expenz.discription,
-                                amount: expenz.amount,
-                                time: expenz.time,
-                                image:
-                                    "imageassets/anya-taylor-joy-najlepsze-filmy-i-seriale-z-gwiazda.jpeg");
+                            final Expenzes? expenz = widget.expenzList?[index];
+                            //convet to dismisable
+                            return Dismissible(
+                              key: ValueKey(expenz),
+                              direction: DismissDirection.startToEnd,
+                              onDismissed: (direction) {
+                                setState(() {
+                                  widget.deleteExpenz(expenz);
+                                });
+                              },
+                              child: ReusableItem(
+                                  color: expenzColors[expenz!.catrgory]!,
+                                  title: expenz.title,
+                                  discription: expenz.discription,
+                                  amount: expenz.amount,
+                                  time: expenz.time,
+                                  image:
+                                      expenzCategoryImages[expenz.catrgory]!),
+                            );
                           }),
                     ],
                   ),
@@ -98,14 +109,24 @@ class _TransactionPageState extends State<TransactionPage> {
                           itemBuilder: (context, index) {
                             //  fetchExpenzes();
                             Incomes incomes = widget.IncomeList![index];
-                            return ReusableItem(
-                                color: incomeColors[incomes.catrgory]!,
-                                title: incomes.title,
-                                discription:  incomes.discription,
-                                amount:  incomes.amount,
-                                time: incomes.time,
-                                image:
-                                    "imageassets/anya-taylor-joy-najlepsze-filmy-i-seriale-z-gwiazda.jpeg");
+                            return Dismissible(
+                              key: ValueKey(incomes),
+                              direction: DismissDirection.startToEnd,
+                              onDismissed: (direction) {
+                                widget.deleteIncome(incomes);
+                              },
+                              background: Container(
+                                color: kccardShadow.withOpacity(0.5),
+                              ),
+                              child: ReusableItem(
+                                  color: incomeColors[incomes.catrgory]!,
+                                  title: incomes.title,
+                                  discription: incomes.discription,
+                                  amount: incomes.amount,
+                                  time: incomes.time,
+                                  image:
+                                      incomeCategoryImages[incomes.catrgory]!),
+                            );
                           }),
                     ],
                   ),

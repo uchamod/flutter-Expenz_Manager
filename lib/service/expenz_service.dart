@@ -23,7 +23,6 @@ class ExpenzeService {
         expenList = existingExpenzes
             .map((e) => Expenzes.fromJSON(json.decode(e)))
             .toList();
-     
       }
       expenList.add(expenz);
       //expenz list to decoded string list
@@ -76,6 +75,45 @@ class ExpenzeService {
       return expenList;
     } catch (err) {
       return [];
+    }
+  }
+
+  //delete an expenz
+  Future<void> deleteExpenz(int id, BuildContext context) async {
+    try {
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      List<String>? existingExpenzes = pref.getStringList(expenzKey);
+      if (existingExpenzes != null) {
+        expenList = existingExpenzes
+            .map((e) => Expenzes.fromJSON(json.decode(e)))
+            .toList();
+        //remove the expenz
+        expenList.removeWhere((element) => element.id == id);
+        //encode the expenz list to json and store it
+        List<String> updatedExpenzList =
+            expenList.map((e) => json.encode(e.toJSON())).toList();
+        pref.setStringList(expenzKey, updatedExpenzList);
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              duration: const Duration(seconds: 3),
+              backgroundColor: kcButtonBlue,
+              content: Text(
+                "Expenz deleted succsussfuly",
+                style: TextStyle(color: kcButtonText),
+              )));
+        }
+      }
+    } catch (err) {
+      if (context.mounted) {
+        print(err);
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            duration: const Duration(seconds: 3),
+            backgroundColor: kcCardRed,
+            content: Text(
+              "something went wrong",
+              style: TextStyle(color: kcButtonText),
+            )));
+      }
     }
   }
 }

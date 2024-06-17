@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 // ignore: camel_case_types
 enum incomeCategory { salary, passive, freelance, sales }
 
-Map<incomeCategory, String> incomeCategoryImages = {
-  incomeCategory.salary: "imageassets/income/icons8-salary-48.png",
-  incomeCategory.passive: "imageassets/income/icons8-passive-income-64.png",
-  incomeCategory.freelance: "imageassets/income/icons8-freelance-64.png",
-  incomeCategory.sales: "imageassets/income/icons8-sales-48.png"
+Map<incomeCategory, Icon> incomeCategoryImages = {
+  incomeCategory.salary:const Icon(Icons.attach_money_rounded,color: Colors.green,size: 35,),
+  incomeCategory.passive: const Icon(Icons.work_history_sharp,color: Colors.red,size: 35,),
+  incomeCategory.freelance: const Icon(Icons.design_services,color: Colors.blue,size: 35,),
+  incomeCategory.sales:const Icon(Icons.sell_outlined,color: Colors.orange,size: 35,)
 };
 Map<incomeCategory, Color> incomeColors = {
   incomeCategory.salary: const Color(0xff5FD068),

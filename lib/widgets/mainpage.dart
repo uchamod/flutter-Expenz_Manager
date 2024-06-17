@@ -56,6 +56,23 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
+  //delete expenz
+  void deleteExpenz(Expenzes expenz) async {
+    ExpenzeService().deleteExpenz(expenz.id!, context);
+    List<Expenzes>? loadedExpenzes = await ExpenzeService().loadExpenzes();
+    setState(() {
+      expenzList = loadedExpenzes;
+    });
+  }
+  //delete income
+  void deleteIncome(Incomes income) async {
+   IncomeService().deleteExpenz(income.id, context);
+    List<Incomes>? loadedIncomes = await IncomeService().loadIncome();
+    setState(() {
+     incomeList = loadedIncomes;
+    });
+  }
+
   @override
   void initState() {
     setState(() {
@@ -74,10 +91,13 @@ class _MainPageState extends State<MainPage> {
     List<Widget> screens = [
       const HomePage(),
       TransactionPage(
-        expenzList: expenzList,
-        IncomeList: incomeList,
+          expenzList: expenzList,
+          IncomeList: incomeList,
+          deleteExpenz: deleteExpenz, deleteIncome: deleteIncome,),
+      AddingPage(
+        expenz: addnewExpenz,
+        income: addnewIncome,
       ),
-      const AddingPage(),
       const BudgetPage(),
       const ProfilePage()
     ];

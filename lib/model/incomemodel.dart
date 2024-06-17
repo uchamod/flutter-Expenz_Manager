@@ -42,8 +42,8 @@ class Incomes {
       "title": title,
       "discription": discription,
       "amount": amount,
-      "date": date,
-      "time": time
+      'date': date,
+      'time': time,
     };
   }
 
@@ -55,7 +55,8 @@ class Incomes {
         title: json["title"],
         discription: json["discription"],
         amount: json["amount"],
-        date: json["date"],
-        time: json["time"]);
+         date: json["date"],
+      time:json["time"],
+        );
   }
 }

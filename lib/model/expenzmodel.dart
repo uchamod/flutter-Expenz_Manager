@@ -9,7 +9,7 @@ Map<ExpenzCategory, String> expenzCategoryImages = {
   ExpenzCategory.vechical: "imageassets/expenze/icons8-car-64.png",
   ExpenzCategory.entertainment: "imageassets/expenze/icons8-edible-48.png"
 };
-Map<ExpenzCategory, Color> incomeColors = {
+Map<ExpenzCategory, Color> expenzColors = {
   ExpenzCategory.food: const Color(0xff5FD068),
   ExpenzCategory.helth: const Color(0xffCC704B),
   ExpenzCategory.vechical: const Color(0xff8FBDD3),
@@ -42,20 +42,21 @@ class Expenzes {
       "title": title,
       "discription": discription,
       "amount": amount,
-      "date": date,
-      "time": time
+      'date': date,
+      'time': time,
     };
   }
 
 //deserelization json object to dart object
   factory Expenzes.fromJSON(Map<String, dynamic> json) {
     return Expenzes(
-        id: json["id"],
-        catrgory: ExpenzCategory.values[json["category"]],
-        title: json["title"],
-        discription: json["discription"],
-        amount: json["amount"],
-        date: json["date"],
-        time: json["time"]);
+      id: json["id"],
+      catrgory: ExpenzCategory.values[json["category"]],
+      title: json["title"],
+      discription: json["discription"],
+      amount: json["amount"],
+      date: json["date"],
+      time:json["time"],
+    );
   }
 }

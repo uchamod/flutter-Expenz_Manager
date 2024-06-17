@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+
 
 //creata model for the onboard data
 class OnboardScreenmodel {

@@ -1,5 +1,6 @@
 import 'package:expenze_manager/util/constants.dart';
 import 'package:flutter/material.dart';
+
 //expenz or income card
 class ReusableItem extends StatefulWidget {
   final Color color;
@@ -35,10 +36,10 @@ class _ReusableItemState extends State<ReusableItem> {
             color: kcButtonText,
             boxShadow: [
               BoxShadow(
-                blurRadius: 1,
+                //  blurRadius: 1,
                 color: kcDiscription,
-                offset: const Offset(1, 1),
-                spreadRadius: 1,
+                offset: const Offset(0, 1),
+                spreadRadius: 0,
               ),
             ]),
 
@@ -69,6 +70,7 @@ class _ReusableItemState extends State<ReusableItem> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      //card title
                       Text(
                         widget.title,
                         style: TextStyle(
@@ -76,6 +78,7 @@ class _ReusableItemState extends State<ReusableItem> {
                             fontWeight: FontWeight.w500,
                             color: kcHedingBlack),
                       ),
+                      //card discription
                       Text(widget.discription,
                           style: TextStyle(
                               fontSize: 12,
@@ -87,13 +90,15 @@ class _ReusableItemState extends State<ReusableItem> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
+                      //card amount
                       Text(widget.amount,
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                               color: kcCardRed)),
                       Text(
-                        widget.time,
+                        //card time
+                        widget.time.toString(),
                         style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w500,

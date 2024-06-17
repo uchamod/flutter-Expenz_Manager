@@ -1,7 +1,5 @@
-import 'package:expenze_manager/model/datawrapper.dart';
 import 'package:expenze_manager/model/expenzmodel.dart';
 import 'package:expenze_manager/model/incomemodel.dart';
-import 'package:expenze_manager/screens/homepage/homepage.dart';
 import 'package:expenze_manager/service/expenz_service.dart';
 import 'package:expenze_manager/service/income_service.dart';
 import 'package:expenze_manager/util/constants.dart';
@@ -32,20 +30,22 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
   final TextEditingController _amountCotroller = TextEditingController();
 
   //initial date
-  final DateTime _currentDate = DateTime.now();
+  //final DateTime _currentDate = DateTime.now();
   final DateTime _firstDate = DateTime(
       DateTime.now().year - 1, DateTime.now().month, DateTime.now().day);
   final DateTime _lastDate = DateTime(
       DateTime.now().year + 1, DateTime.now().month, DateTime.now().day);
-  DateTime _selecteDate =
-      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+
   //set the dateformat
   final DateFormat dateFomatter = DateFormat("y,MMMM dd");
   //get enums
   ExpenzCategory exCategory = ExpenzCategory.food;
   incomeCategory inCategory = incomeCategory.freelance;
   //get current time
+
   TimeOfDay _selectedTime = TimeOfDay.now();
+  DateTime _selecteDate = DateTime.now();
+ 
   //dispose
   @override
   void dispose() {
@@ -56,7 +56,6 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
   }
 
   //classes
-  DataWrapper wrapper = DataWrapper();
 
   int initialId = 0;
   @override
@@ -232,8 +231,9 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                       ),
                     ),
                   ),
+                  //show date
                   Text(
-                    _selectedFormateDate,
+                   _selectedFormateDate,
                     style: TextStyle(
                         color: kcHedingBlack,
                         fontSize: 14,
@@ -281,8 +281,10 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                       ),
                     ),
                   ),
+                  //show time
                   Text(
-                    "${_selectedTime.hour} : ${_selectedTime.minute}",
+                   "${ _selectedTime.hour} : ${_selectedTime.minute}"
+                    ,
                     style: TextStyle(
                         color: kcHedingBlack,
                         fontSize: 14,
@@ -303,33 +305,33 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
               ),
               GestureDetector(
                 onTap: () {
-                  setState(() {
-                    if (widget.checker == 0) {
-                      wrapper.incomeList.add(Incomes(
-                          id: initialId,
-                          catrgory: inCategory,
-                          title: _titleController.text,
-                          discription: _DiscriptionController.text,
-                          amount: _amountCotroller.text,
-                          date: _selectedFormateDate,
-                          time:
-                              "${_selectedTime.hour} : ${_selectedTime.minute}"));
-                      const HomePage();
-                    } else {
-                      wrapper.expenzList.add(
-                        Expenzes(
-                            id: initialId,
-                            catrgory: exCategory,
-                            title: _titleController.text,
-                            discription: _DiscriptionController.text,
-                            amount: _amountCotroller.text,
-                            date: _selectedFormateDate,
-                            time:
-                                "${_selectedTime.hour} : ${_selectedTime.minute}"),
-                      );
-                      const HomePage();
-                    }
-                  });
+                  // setState(() {
+                  //   if (widget.checker == 0) {
+                  //     wrapper.incomeList.add(Incomes(
+                  //         id: initialId,
+                  //         catrgory: inCategory,
+                  //         title: _titleController.text,
+                  //         discription: _DiscriptionController.text,
+                  //         amount: _amountCotroller.text,
+                  //         date: _selectedFormateDate,
+                  //         time:
+                  //             "${_selectedTime.hour} : ${_selectedTime.minute}"));
+                  //     const HomePage();
+                  //   } else {
+                  //     wrapper.expenzList.add(
+                  //       Expenzes(
+                  //           id: initialId,
+                  //           catrgory: exCategory,
+                  //           title: _titleController.text,
+                  //           discription: _DiscriptionController.text,
+                  //           amount: _amountCotroller.text,
+                  //           date: _selectedFormateDate,
+                  //           time:
+                  //               "${_selectedTime.hour} : ${_selectedTime.minute}"),
+                  //     );
+                  //     const HomePage();
+                  //   }
+                  // });
                 },
                 //add new item button
                 child: GestureDetector(
@@ -348,7 +350,7 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                           discription: _DiscriptionController.text,
                           amount: _amountCotroller.text,
                           date: _selectedFormateDate,
-                          time: _selectedTime.toString());
+                          time:  "${ _selectedTime.hour} : ${_selectedTime.minute}");
                       if (context.mounted) {
                         setState(() {
                           IncomeService().saveIncome(income, context);
@@ -362,7 +364,7 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                       //add new expenz
                       List<Expenzes>? existingtExpenzList =
                           await ExpenzeService().loadExpenzes();
-                     
+
                       //create a expenze to store
                       Expenzes expenz = Expenzes(
                           id: existingtExpenzList!.length + 1,
@@ -371,7 +373,7 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                           discription: _DiscriptionController.text,
                           amount: _amountCotroller.text,
                           date: _selectedFormateDate,
-                          time: _selectedTime.toString());
+                          time: "${ _selectedTime.hour} : ${_selectedTime.minute}" );
                       if (context.mounted) {
                         setState(() {
                           ExpenzeService().saveExpenz(expenz, context);
@@ -406,12 +408,16 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
           context: context,
           firstDate: _firstDate,
           lastDate: _lastDate,
-          currentDate: _currentDate);
-      //update the date
+          currentDate: _selecteDate);
+
       setState(() {
         _selecteDate = setdate!;
       });
-    } catch (err) {}
+    }
+
+    // update the date
+
+    catch (err) {}
   }
 
   //to show the time
@@ -419,9 +425,11 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
     try {
       final settime =
           await showTimePicker(context: context, initialTime: _selectedTime);
+
       setState(() {
         _selectedTime = settime!;
       });
+
     } catch (err) {}
   }
 }

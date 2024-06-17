@@ -1,8 +1,14 @@
+import 'dart:async';
+
+import 'package:expenze_manager/model/expenzmodel.dart';
+import 'package:expenze_manager/model/incomemodel.dart';
 import 'package:expenze_manager/screens/addingpage.dart/adding.dart';
 import 'package:expenze_manager/screens/budgetpage/budget.dart';
 import 'package:expenze_manager/screens/homepage/homepage.dart';
 import 'package:expenze_manager/screens/profilepage/profile.dart';
 import 'package:expenze_manager/screens/transactionpage/transaction.dart';
+import 'package:expenze_manager/service/expenz_service.dart';
+import 'package:expenze_manager/service/income_service.dart';
 import 'package:expenze_manager/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,18 +20,67 @@ class MainPage extends StatefulWidget {
   State<MainPage> createState() => _MainPageState();
 }
 
-int _selectIndex = 0;
-List<Widget> screens = [
-  const HomePage(),
-  const TransactionPage(),
-  AddingPage(),
-  const BudgetPage(),
-  const ProfilePage()
-];
-
 class _MainPageState extends State<MainPage> {
+  List<Expenzes>? expenzList = [];
+  List<Incomes>? incomeList = [];
+  //fetch expenzes data
+  void fetchExpenzes() async {
+    List<Expenzes>? loadedExpenzes = await ExpenzeService().loadExpenzes();
+    setState(() {
+      expenzList = loadedExpenzes;
+    });
+  }
+
+  //fetch income data
+  void fetchIncome() async {
+    List<Incomes>? loadedIncomes = await IncomeService().loadIncome();
+    setState(() {
+      incomeList = loadedIncomes;
+    });
+  }
+
+  //add new expenz
+  void addnewExpenz(Expenzes newExpenz) {
+    ExpenzeService().saveExpenz(newExpenz, context);
+    setState(() {
+      expenzList!.add(newExpenz);
+    });
+  }
+
+  //add new income
+  void addnewIncome(Incomes newIncome) {
+    IncomeService().saveIncome(newIncome, context);
+
+    setState(() {
+      incomeList!.add(newIncome);
+    });
+  }
+
+  @override
+  void initState() {
+    setState(() {
+      fetchExpenzes();
+      fetchIncome();
+    });
+
+    // TODO: implement initState
+    super.initState();
+  }
+
+  int _selectIndex = 0;
+
   @override
   Widget build(BuildContext context) {
+    List<Widget> screens = [
+      const HomePage(),
+      TransactionPage(
+        expenzList: expenzList,
+        IncomeList: incomeList,
+      ),
+      const AddingPage(),
+      const BudgetPage(),
+      const ProfilePage()
+    ];
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,

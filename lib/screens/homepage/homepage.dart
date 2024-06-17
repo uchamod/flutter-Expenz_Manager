@@ -1,10 +1,7 @@
-import 'package:expenze_manager/model/datawrapper.dart';
 import 'package:expenze_manager/service/store_userdata.dart';
 import 'package:expenze_manager/util/constants.dart';
 import 'package:expenze_manager/widgets/fullexpenzshowwidget.dart';
 import 'package:expenze_manager/widgets/linerdigram.dart';
-import 'package:expenze_manager/widgets/reusableitem.dart';
-
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,10 +15,7 @@ class _HomePageState extends State<HomePage> {
   String username = "";
   // List<Expenzes> expenzWrapperList = DataWrapper().expenzList;
   // List<Incomes> incomeWrapperList = DataWrapper().incomeList;
-  List<dynamic> wrapperList = [
-    ...DataWrapper().expenzList,
-    ...DataWrapper().incomeList
-  ];
+
   @override
   void initState() {
     // TODO: implement initState
@@ -134,22 +128,7 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.27,
                     child: ListView.builder(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      reverse: true,
-                      physics: const AlwaysScrollableScrollPhysics(),
-                      itemCount: wrapperList.length,
-                      itemBuilder: (context, index) {
-                        // dynamic item = wrapperList[index];
-                        return ReusableItem(
-                            color: kcCardGreen.withOpacity(0.3),
-                            title: wrapperList[index].title,
-                            discription: wrapperList[index].discription,
-                            amount: wrapperList[index].amount,
-                            time: wrapperList[index].time,
-                            image:
-                                "imageassets/81472305859204888_BLD_Online.jpg");
-                      },
+                      itemBuilder: (context, index) {},
                     ),
                   )
                 ],

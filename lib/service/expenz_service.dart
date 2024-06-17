@@ -23,7 +23,7 @@ class ExpenzeService {
         expenList = existingExpenzes
             .map((e) => Expenzes.fromJSON(json.decode(e)))
             .toList();
-        print("not null");
+     
       }
       expenList.add(expenz);
       //expenz list to decoded string list

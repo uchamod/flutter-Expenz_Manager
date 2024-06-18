@@ -7,13 +7,13 @@ import 'package:flutter/material.dart';
 class TransactionPage extends StatefulWidget {
   // final Function() addnewExpenzes;
   final List<Expenzes>? expenzList;
-  final List<Incomes>? IncomeList;
+  final List<Incomes>? incomeList;
   final void Function(Expenzes) deleteExpenz;
   final void Function(Incomes) deleteIncome;
   const TransactionPage({
     super.key,
     required this.expenzList,
-    required this.IncomeList,
+    required this.incomeList,
     required this.deleteExpenz,
     required this.deleteIncome,
   });
@@ -55,33 +55,48 @@ class _TransactionPageState extends State<TransactionPage> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          scrollDirection: Axis.vertical,
-                          itemCount: widget.expenzList?.length,
-                          itemBuilder: (context, index) {
-                            //  fetchExpenzes();
-                            final Expenzes? expenz = widget.expenzList?[index];
-                            //convet to dismisable
-                            return Dismissible(
-                              key: ValueKey(expenz),
-                              direction: DismissDirection.startToEnd,
-                              onDismissed: (direction) {
-                                setState(() {
-                                  widget.deleteExpenz(expenz);
-                                });
-                              },
-                              child: ReusableItem(
-                                  color: expenzColors[expenz!.catrgory]!,
-                                  title: expenz.title,
-                                  discription: expenz.discription,
-                                  amount: expenz.amount,
-                                  time: expenz.time,
-                                  image:
-                                      expenzCategoryImages[expenz.catrgory]!),
-                            );
-                          }),
+                      widget.expenzList!.isEmpty
+                          ? Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 80),
+                            child: Center(
+                              
+                                child: Text(
+                                  "add some expenzes",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500,
+                                      color: kcDiscription),
+                                ),
+                              ),
+                          )
+                          : ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              scrollDirection: Axis.vertical,
+                              itemCount: widget.expenzList?.length,
+                              itemBuilder: (context, index) {
+                                //  fetchExpenzes();
+                                final Expenzes? expenz =
+                                    widget.expenzList?[index];
+                                //convet to dismisable
+                                return Dismissible(
+                                  key: ValueKey(expenz),
+                                  direction: DismissDirection.startToEnd,
+                                  onDismissed: (direction) {
+                                    setState(() {
+                                      widget.deleteExpenz(expenz);
+                                    });
+                                  },
+                                  child: ReusableItem(
+                                      color: expenzColors[expenz!.catrgory]!,
+                                      title: expenz.title,
+                                      discription: expenz.discription,
+                                      amount: expenz.amount,
+                                      time: expenz.time,
+                                      image: expenzCategoryImages[
+                                          expenz.catrgory]!),
+                                );
+                              }),
                     ],
                   ),
                 ),
@@ -101,14 +116,28 @@ class _TransactionPageState extends State<TransactionPage> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
+                        widget.incomeList!.isEmpty
+                          ? Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 80),
+                            child: Center(
+                              
+                                child: Text(
+                                  "add some incomes",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500,
+                                      color: kcDiscription),
+                                ),
+                              ),
+                          ):
                       ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           scrollDirection: Axis.vertical,
-                          itemCount: widget.IncomeList?.length,
+                          itemCount: widget.incomeList?.length,
                           itemBuilder: (context, index) {
                             //  fetchExpenzes();
-                            Incomes incomes = widget.IncomeList![index];
+                            Incomes incomes = widget.incomeList![index];
                             return Dismissible(
                               key: ValueKey(incomes),
                               direction: DismissDirection.startToEnd,

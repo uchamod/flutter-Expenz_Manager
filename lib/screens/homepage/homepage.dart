@@ -1,13 +1,20 @@
+import 'package:expenze_manager/model/expenzmodel.dart';
+import 'package:expenze_manager/model/incomemodel.dart';
 import 'package:expenze_manager/service/store_userdata.dart';
 import 'package:expenze_manager/util/constants.dart';
 import 'package:expenze_manager/widgets/fullexpenzshowwidget.dart';
 import 'package:expenze_manager/widgets/linerdigram.dart';
 import 'package:expenze_manager/widgets/reusableitem.dart';
+
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
- // final List<dynamic> cardList;
-  const HomePage({super.key,});
+  final List<Expenzes>? expenzList;
+  final List<Incomes>? incomeList;
+  const HomePage({
+    super.key,
+    required this.expenzList, this.incomeList,
+  });
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -15,6 +22,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String username = "";
+  dynamic totalExpenz;
+  dynamic totalIncome;
   // List<Expenzes> expenzWrapperList = DataWrapper().expenzList;
   // List<Incomes> incomeWrapperList = DataWrapper().incomeList;
 
@@ -26,8 +35,17 @@ class _HomePageState extends State<HomePage> {
         setState(() {
           username = value[0];
         });
+       
       }
     });
+    //  setState(() {
+    //       for (var i = 0; i < widget.expenzList!.length; i++) {
+    //         totalExpenz += widget.expenzList![i].amount;
+    //       }
+    //       for (var i = 0; i < widget.incomeList!.length; i++) {
+    //         totalIncome += widget.incomeList![i].amount;
+    //       }
+    //     });
     super.initState();
   }
 
@@ -83,12 +101,12 @@ class _HomePageState extends State<HomePage> {
                       FullExpenzShowCard(
                           icon: Icons.arrow_downward_rounded,
                           title: "Income",
-                          amount: "\$1000",
+                          amount: totalIncome.toString(),
                           color: kcCardGreen),
                       FullExpenzShowCard(
                           icon: Icons.arrow_upward,
                           title: "Expenz",
-                          amount: "\$1500",
+                          amount: totalExpenz.toString(),
                           color: kcCardRed)
                     ],
                   ),
@@ -129,14 +147,47 @@ class _HomePageState extends State<HomePage> {
                   // const SizedBox(
                   //   height: 10,
                   // ),
-                  SizedBox(
+                  Container(
                     height: MediaQuery.of(context).size.height * 0.27,
-                    child: ListView.builder(
-                  
-                     
-                      itemBuilder: (context, index) {
-                       
-                      },
+                    //color: kcDiscription,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          widget.expenzList!.isEmpty
+                              ? Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 110),
+                                  child: Center(
+                                    child: Text(
+                                      "add some expenzes",
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w500,
+                                          color: kcDiscription),
+                                    ),
+                                  ),
+                                )
+                              : ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: widget.expenzList!.length,
+                                  itemBuilder: (context, index) {
+                                    //  fetchExpenzes();
+                                    final Expenzes? expenz =
+                                        widget.expenzList![index];
+                                    //convet to dismisable
+                                    return ReusableItem(
+                                        color: expenzColors[expenz!.catrgory]!,
+                                        title: expenz.title,
+                                        discription: expenz.discription,
+                                        amount: expenz.amount,
+                                        time: expenz.time,
+                                        image: expenzCategoryImages[
+                                            expenz.catrgory]!);
+                                  }),
+                        ],
+                      ),
                     ),
                   )
                 ],

@@ -23,6 +23,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   List<Expenzes>? expenzList = [];
   List<Incomes>? incomeList = [];
+  dynamic total;
   //fetch expenzes data
   void fetchExpenzes() async {
     List<Expenzes>? loadedExpenzes = await ExpenzeService().loadExpenzes();
@@ -64,20 +65,24 @@ class _MainPageState extends State<MainPage> {
       expenzList = loadedExpenzes;
     });
   }
+
   //delete income
   void deleteIncome(Incomes income) async {
-   IncomeService().deleteExpenz(income.id, context);
+    IncomeService().deleteIncome(income.id, context);
     List<Incomes>? loadedIncomes = await IncomeService().loadIncome();
     setState(() {
-     incomeList = loadedIncomes;
+      incomeList = loadedIncomes;
     });
   }
+
+  
 
   @override
   void initState() {
     setState(() {
       fetchExpenzes();
       fetchIncome();
+   
     });
 
     // TODO: implement initState
@@ -89,11 +94,16 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     List<Widget> screens = [
-      const HomePage(),
+      HomePage(
+        expenzList: expenzList,
+       
+      ),
       TransactionPage(
-          expenzList: expenzList,
-          IncomeList: incomeList,
-          deleteExpenz: deleteExpenz, deleteIncome: deleteIncome,),
+        expenzList: expenzList,
+        incomeList: incomeList,
+        deleteExpenz: deleteExpenz,
+        deleteIncome: deleteIncome,
+      ),
       AddingPage(
         expenz: addnewExpenz,
         income: addnewIncome,
@@ -128,16 +138,16 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  Future<void> setpage(BuildContext context, int currentpage) async {
-    try {
-      //initilize shared preferences
-      SharedPreferences pref = await SharedPreferences.getInstance();
-      //set the store data
-      await pref.setInt("pagenumber", currentpage);
-    } catch (err) {
-      print("no way");
-    }
-  }
+  // Future<void> setpage(BuildContext context, int currentpage) async {
+  //   try {
+  //     //initilize shared preferences
+  //     SharedPreferences pref = await SharedPreferences.getInstance();
+  //     //set the store data
+  //     await pref.setInt("pagenumber", currentpage);
+  //   } catch (err) {
+  //     print("no way");
+  //   }
+  // }
 
   final List<BottomNavigationBarItem> _items = [
     const BottomNavigationBarItem(

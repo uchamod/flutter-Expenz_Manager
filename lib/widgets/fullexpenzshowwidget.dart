@@ -5,7 +5,7 @@ class FullExpenzShowCard extends StatefulWidget {
   final IconData icon;
   final String title;
   final Color color;
-  final String amount;
+  final dynamic amount;
   const FullExpenzShowCard(
       {super.key,
       required this.icon,

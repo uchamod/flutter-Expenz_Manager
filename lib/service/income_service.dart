@@ -81,7 +81,7 @@ class IncomeService {
   }
 
   //delete an Income
-  Future<void> deleteExpenz(int id, BuildContext context) async {
+  Future<void> deleteIncome(int id, BuildContext context) async {
     try {
       SharedPreferences pref = await SharedPreferences.getInstance();
       List<String>? existingExpenzes = pref.getStringList(_incomeKey);

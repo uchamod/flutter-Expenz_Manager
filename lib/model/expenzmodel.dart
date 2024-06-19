@@ -22,7 +22,7 @@ class Expenzes {
   final ExpenzCategory catrgory;
   final String title;
   final String discription;
-  final dynamic amount;
+  final double amount;
   final String date;
   final String time;
 

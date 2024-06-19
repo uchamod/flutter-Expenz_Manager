@@ -22,8 +22,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String username = "";
-  dynamic totalExpenz;
-  dynamic totalIncome;
+  double  totalExpenz=0;
+  double totalIncome=0;
   // List<Expenzes> expenzWrapperList = DataWrapper().expenzList;
   // List<Incomes> incomeWrapperList = DataWrapper().incomeList;
 
@@ -38,15 +38,15 @@ class _HomePageState extends State<HomePage> {
        
       }
     });
-    //  setState(() {
-    //       for (var i = 0; i < widget.expenzList!.length; i++) {
-    //         totalExpenz += widget.expenzList![i].amount;
-    //       }
-    //       for (var i = 0; i < widget.incomeList!.length; i++) {
-    //         totalIncome += widget.incomeList![i].amount;
-    //       }
-    //     });
-    super.initState();
+     setState(() {
+          for (var i = 0; i < widget.expenzList!.length; i++) {
+            totalExpenz += widget.expenzList![i].amount;
+          }
+          for (var i = 0; i < widget.incomeList!.length; i++) {
+            totalIncome += widget.incomeList![i].amount;
+          }
+        });
+   // super.initState();
   }
 
   @override
@@ -101,12 +101,12 @@ class _HomePageState extends State<HomePage> {
                       FullExpenzShowCard(
                           icon: Icons.arrow_downward_rounded,
                           title: "Income",
-                          amount: totalIncome.toString(),
+                          amount: totalIncome,
                           color: kcCardGreen),
                       FullExpenzShowCard(
                           icon: Icons.arrow_upward,
                           title: "Expenz",
-                          amount: totalExpenz.toString(),
+                          amount: totalExpenz,
                           color: kcCardRed)
                     ],
                   ),
@@ -182,7 +182,7 @@ class _HomePageState extends State<HomePage> {
                                         title: expenz.title,
                                         discription: expenz.discription,
                                         amount: expenz.amount,
-                                        time: expenz.time,
+                                        time: expenz.date,
                                         image: expenzCategoryImages[
                                             expenz.catrgory]!);
                                   }),

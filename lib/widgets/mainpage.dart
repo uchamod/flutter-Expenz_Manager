@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:expenze_manager/model/expenzmodel.dart';
 import 'package:expenze_manager/model/incomemodel.dart';
 import 'package:expenze_manager/screens/addingpage.dart/adding.dart';
@@ -11,7 +9,6 @@ import 'package:expenze_manager/service/expenz_service.dart';
 import 'package:expenze_manager/service/income_service.dart';
 import 'package:expenze_manager/util/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -75,28 +72,59 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
-  
+  //get expenz  category total map
+  Map<ExpenzCategory, double> calExpenz() {
+    Map<ExpenzCategory, double> expenzMap = {
+      ExpenzCategory.food: 0,
+      ExpenzCategory.entertainment: 0,
+      ExpenzCategory.helth: 0,
+      ExpenzCategory.vechical: 0,
+    };
+    //calculate totl amounts by category
+    for (Expenzes expenz in expenzList!) {
+      expenzMap[expenz.catrgory] = expenzMap[expenz.catrgory]! + expenz.amount;
+    }
+    return expenzMap;
+  }
+
+  double expenzamount = 0;
+  //get income category total map
+  Map<incomeCategory, double> calIncome() {
+    Map<incomeCategory, double> incomeMap = {
+      incomeCategory.freelance: 0,
+      incomeCategory.passive: 0,
+      incomeCategory.salary: 0,
+      incomeCategory.sales: 0,
+    };
+    //calculate total  amounts by category
+    for (Incomes income in incomeList!) {
+      incomeMap[income.catrgory] = incomeMap[income.catrgory]! + income.amount;
+      expenzamount += income.amount;
+    }
+    return incomeMap;
+  }
+
+  //final Map<incomeCategory, double> incomeMap;
+
+  int _selectIndex = 0;
 
   @override
   void initState() {
     setState(() {
       fetchExpenzes();
       fetchIncome();
-   
     });
 
     // TODO: implement initState
     super.initState();
   }
 
-  int _selectIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     List<Widget> screens = [
       HomePage(
         expenzList: expenzList,
-       
+        incomeList: incomeList,
       ),
       TransactionPage(
         expenzList: expenzList,
@@ -108,7 +136,11 @@ class _MainPageState extends State<MainPage> {
         expenz: addnewExpenz,
         income: addnewIncome,
       ),
-      const BudgetPage(),
+      BudgetPage(
+        expenzMap: calExpenz(),
+        incomeMap: calIncome(),
+       
+      ),
       const ProfilePage()
     ];
     return Scaffold(

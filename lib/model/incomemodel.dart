@@ -4,10 +4,26 @@ import 'package:flutter/material.dart';
 enum incomeCategory { salary, passive, freelance, sales }
 
 Map<incomeCategory, Icon> incomeCategoryImages = {
-  incomeCategory.salary:const Icon(Icons.attach_money_rounded,color: Colors.green,size: 35,),
-  incomeCategory.passive: const Icon(Icons.work_history_sharp,color: Colors.red,size: 35,),
-  incomeCategory.freelance: const Icon(Icons.design_services,color: Colors.blue,size: 35,),
-  incomeCategory.sales:const Icon(Icons.sell_outlined,color: Colors.orange,size: 35,)
+  incomeCategory.salary: const Icon(
+    Icons.attach_money_rounded,
+    color: Colors.green,
+    size: 35,
+  ),
+  incomeCategory.passive: const Icon(
+    Icons.work_history_sharp,
+    color: Colors.red,
+    size: 35,
+  ),
+  incomeCategory.freelance: const Icon(
+    Icons.design_services,
+    color: Colors.blue,
+    size: 35,
+  ),
+  incomeCategory.sales: const Icon(
+    Icons.sell_outlined,
+    color: Colors.orange,
+    size: 35,
+  )
 };
 Map<incomeCategory, Color> incomeColors = {
   incomeCategory.salary: const Color(0xff5FD068),
@@ -21,7 +37,7 @@ class Incomes {
   final incomeCategory catrgory;
   final String title;
   final String discription;
-  final dynamic amount;
+  final double amount;
   final String date;
   final String time;
 
@@ -34,8 +50,8 @@ class Incomes {
       required this.date,
       required this.time});
 
- //serilization dart objct ot json object
- Map<String, dynamic> toJSON() {
+  //serilization dart objct ot json object
+  Map<String, dynamic> toJSON() {
     return {
       "id": id,
       "category": catrgory.index,
@@ -50,13 +66,13 @@ class Incomes {
 //deserelization json object to dart object
   factory Incomes.fromJSON(Map<String, dynamic> json) {
     return Incomes(
-        id: json["id"],
-        catrgory: incomeCategory.values[json["category"]],
-        title: json["title"],
-        discription: json["discription"],
-        amount: json["amount"],
-         date: json["date"],
-      time:json["time"],
-        );
+      id: json["id"],
+      catrgory: incomeCategory.values[json["category"]],
+      title: json["title"],
+      discription: json["discription"],
+      amount: json["amount"],
+      date: json["date"],
+      time: json["time"],
+    );
   }
 }

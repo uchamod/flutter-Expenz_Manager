@@ -92,7 +92,7 @@ class _TransactionPageState extends State<TransactionPage> {
                                       title: expenz.title,
                                       discription: expenz.discription,
                                       amount: expenz.amount,
-                                      time: expenz.time,
+                                      time: expenz.date,
                                       image: expenzCategoryImages[
                                           expenz.catrgory]!),
                                 );
@@ -102,7 +102,7 @@ class _TransactionPageState extends State<TransactionPage> {
                 ),
               ),
               const SizedBox(
-                height: 15,
+                height: 25,
               ),
               Text(
                 "Incomes",
@@ -152,7 +152,7 @@ class _TransactionPageState extends State<TransactionPage> {
                                   title: incomes.title,
                                   discription: incomes.discription,
                                   amount: incomes.amount,
-                                  time: incomes.time,
+                                  time: incomes.date,
                                   image:
                                       incomeCategoryImages[incomes.catrgory]!),
                             );

@@ -5,7 +5,7 @@ class FullExpenzShowCard extends StatefulWidget {
   final IconData icon;
   final String title;
   final Color color;
-  final dynamic amount;
+  final double amount;
   const FullExpenzShowCard(
       {super.key,
       required this.icon,
@@ -51,7 +51,7 @@ class _FullExpenzShowCardState extends State<FullExpenzShowCard> {
                       fontWeight: FontWeight.w500),
                 ),
                 Text(
-                 widget.amount,
+                 "\$${widget.amount.toStringAsFixed(0)}",
                   style: TextStyle(
                       color: kcButtonText,
                       fontSize: 18,

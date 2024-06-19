@@ -155,6 +155,7 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
               ),
               UserDetailFormFiled(
                 inputType: TextInputType.text,
+                inputAction: TextInputAction.next,
                 borderRad: borderRadius,
                 hintText: "Title",
                 errorMassage: "pleas fill the record",
@@ -172,6 +173,7 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
               UserDetailFormFiled(
                 inputType: TextInputType.text,
                 borderRad: borderRadius,
+                inputAction: TextInputAction.next,
                 hintText: "discription",
                 errorMassage: "pleas fill the record",
                 textController: _DiscriptionController,
@@ -188,6 +190,7 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
               UserDetailFormFiled(
                 inputType: TextInputType.number,
                 borderRad: borderRadius,
+                inputAction: TextInputAction.done,
                 hintText: "amount",
                 errorMassage: "pleas fill the record",
                 textController: _amountCotroller,
@@ -195,6 +198,8 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                 isvaild: (value) {
                   if (value!.isEmpty) {
                     return "pleas fill the record";
+                  }  if (double.parse(value) < 0 || double.parse(value) == 0) {
+                    return "Enter a valid amount";
                   }
                 },
               ),
@@ -309,8 +314,9 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
               ),
               GestureDetector(
                 onTap: () async {
-                  //save user expenz or income in shared preferrences
-                  if (widget.checker == 0) {
+                  //check form validation
+                  if (_validationKey.currentState!.validate()) {
+                           if (widget.checker == 0) {
                     //add new income
                     List<Incomes>? existingtIncomeList =
                         await IncomeService().loadIncome();
@@ -321,7 +327,9 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                         catrgory: inCategory,
                         title: _titleController.text,
                         discription: _DiscriptionController.text,
-                        amount:  _amountCotroller.text.isEmpty ? 0 : double.parse(_amountCotroller.text),
+                        amount: _amountCotroller.text.isEmpty
+                            ? 0
+                            : double.parse(_amountCotroller.text),
                         date: selectedFormateDate,
                         time:
                             "${_selectedTime.hour} : ${_selectedTime.minute}  ${_selectedTime.period.name}");
@@ -346,7 +354,9 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                         catrgory: exCategory,
                         title: _titleController.text,
                         discription: _DiscriptionController.text,
-                        amount: _amountCotroller.text.isEmpty ? 0 : double.parse(_amountCotroller.text),
+                        amount: _amountCotroller.text.isEmpty
+                            ? 0
+                            : double.parse(_amountCotroller.text),
                         date: selectedFormateDate,
                         time:
                             "${_selectedTime.hour} : ${_selectedTime.minute}  ${_selectedTime.period.name}");
@@ -361,6 +371,9 @@ class _ItemAddingFormState extends State<ItemAddingForm> {
                     _titleController.clear();
                   }
 
+                  }
+                  //save user expenz or income in shared preferrences
+                 
                   //print(ExpenzeService().loadExpenzes());
                 },
                 child: CoustomButton(

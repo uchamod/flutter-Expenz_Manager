@@ -71,5 +71,11 @@ class StoreUserData {
     return [userName, email];
   }
 
+  Future<void> removeUser() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    await pref.remove("userName");
+    await pref.remove("email");
+    await pref.remove("password");
   
+  }
 }

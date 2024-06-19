@@ -70,6 +70,7 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  //user identity section
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -98,11 +99,13 @@ class _HomePageState extends State<HomePage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      //income card
                       FullExpenzShowCard(
                           icon: Icons.arrow_downward_rounded,
                           title: "Income",
                           amount: totalIncome,
                           color: kcCardGreen),
+                          //expenz card
                       FullExpenzShowCard(
                           icon: Icons.arrow_upward,
                           title: "Expenz",
@@ -133,6 +136,7 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(
                     height: 20,
                   ),
+                  //line chart
                   const LinerDigram(),
                   const SizedBox(
                     height: 20,
@@ -144,12 +148,10 @@ class _HomePageState extends State<HomePage> {
                         fontSize: 20,
                         fontWeight: FontWeight.w600),
                   ),
-                  // const SizedBox(
-                  //   height: 10,
-                  // ),
-                  Container(
+                 
+                  SizedBox(
                     height: MediaQuery.of(context).size.height * 0.27,
-                    //color: kcDiscription,
+                
                     child: SingleChildScrollView(
                       child: Column(
                         children: [

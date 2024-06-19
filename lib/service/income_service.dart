@@ -119,4 +119,25 @@ class IncomeService {
       }
     }
   }
+  //remove all incomes
+   Future<void> removeAllIncomes(
+      BuildContext context) async {
+    try {
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      await pref.remove(_incomeKey);
+     
+    } catch (err) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: kcCardRed,
+            content: Text(
+              "something went wrong",
+              style: TextStyle(color: kcButtonText),
+            ),
+          ),
+        );
+      }
+    }
+  }
 }
